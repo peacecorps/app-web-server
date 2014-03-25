@@ -1,6 +1,3 @@
-malaria-app-web-server
-======================
-
 <h1>Malaria App Project</h1>
 
 The malaria-app-readme repository is intended to be the central repo for discussions, decision making, and feedback about the project goals and features so that the user experience across platforms is uniform. Comments and coding for a specific platform can happen at the repositories linked to below.
@@ -20,7 +17,12 @@ Peace Corps is looking to build a mobile app that will aid the Volunteer in sust
 Included in this repository are Adobe Illustrator (.ai), and Adobe PDF (.pdf) files that were created by University of Michigan design students to meet the requirements listed above. These resources are intended to be the building blocks of iOS and Android applications.
 
 Also included in this repository for reference and background are two recent studies conducted by the CDC pertaining to use of preventative tactics by volunteers and their reasons for compliance or non-compliance with taking their medicine. 
-
+<h2>Asset Information</h2>
+Included in this repository are files to help you get started:
+<ul>
+<li>Mock Up Version 8 (the latest mock up file) is included in pdf, png, and in the original Adobe Illustrator format.</li>
+<li>A reasearch folder containing a map of Malaria Prevalence, and additional information about Malaria fromt he Centers for Disease Control and Prevention.</li>
+</ul>
 
 <h3>Contact Information:</h3>
 
