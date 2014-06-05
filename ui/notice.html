@@ -1,0 +1,23 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+<!-- notice/notification page-->
+<html>
+    <head>
+        <title>Notice</title>
+    </head>
+    <body>
+        {% include "header.html" %}
+        <br><br><br><br><br><br><br><br>
+        <center><p><h4> {{text}} </h4></p></center>
+        <center><p><h4><a href="{{link}}"><u> {{text1}} </u></a></h4></p></center>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        {% include "footer.html" %}
+    </body>
+</html>
+
+

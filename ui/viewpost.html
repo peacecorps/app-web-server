@@ -1,0 +1,60 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+
+<!-- page to view details of a particular post -->
+<html>
+    <head>
+        <title>Post | {{post.title_post }}</title>
+    </head>
+    <body>
+        {% include "header.html" %}
+        <br><br><br><br><br><br>
+               
+        <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
+        
+        <div style="width:600px; height:300px; margin:0 auto; background-color:#0d8b97;">
+        <br>
+        <center><b><h3><font color="white">View Post</font></h3></b></center>
+        <br>
+            
+            
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+             <div class="col-md-5">
+                    <p><font color="white"><h4>Title : </h4></font></p>
+            </div>
+            <div class="col-md-6">
+                    <p><font color="white"><h4>{{post.title_post}}</h4></font></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                    <p><font color="white"><h4>Descrpition : </h4></font></p>
+            </div>
+            <div class="col-md-6">
+                    <p><font color="white"><h4>{{post.description_post}}</h4></font></p>
+            </div>
+        </div><br>
+        <center>
+        <button class="btn" type="button" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+        <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button>
+        </center>    
+            
+        <br>
+        </div>
+        
+        
+
+
+     <br><br>
+    {% include "footer.html" %}   
+    </body>
+</html>

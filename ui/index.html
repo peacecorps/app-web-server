@@ -1,0 +1,44 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+<!-- first page before login -->
+
+<html>
+<head>
+	<title> Welcome ! </title>
+</head>
+<body>
+    
+    {% include "header.html" %}
+    <br><br><br><br><br><br>
+    
+    <center>
+    <font color="white">
+    <div style="width:600px; height:300px; margin:0 auto; background-color:#0d8b97;">
+    <br>
+    <form action="/login_do/" method="post">
+        <h2>Log in</h2>
+        <br>
+        <h4>Username : </h4></font>
+        <input type="text" name="username" align="right">
+        <font color="white"><h4>Password : </h4></font>
+        <input type="text" name="password">
+        <br><br>
+        <input class="btn" type="submit" name="submit" value="Send">
+    </form>
+        <br><br>
+    </div>
+    
+    </center>
+    
+    <br><br>
+    {% include "footer.html" %}
+
+
+    
+</body>
+</html>
