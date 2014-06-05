@@ -3,6 +3,7 @@ Readme file :
 Details about the folders 
 
 infohub : contains the python environment setup, it contains 4 files - init.py, settings.py, urls.py and wsgi.py
+settings.py has the main configuration settings like dependencies, database, timezone etc.
 
 ui : contains the ui page templates of the site, it conains the html,css, js page templates with applied jinja integration. Also, I have used bootstrap for responsiveness and better UI design.
 
@@ -28,9 +29,9 @@ To run the application,
 4. You might be asked to create a super user. Create one.
 5. Runnning the server : run the following command from the terminal
    python manage.py runserver 0.0.0.0:8000
-6. Open the web-browser and go to http://192.168.33.10:8000/admin. Log in.
+6. Open the web-browser and go to http://192.168.33.10:8000/admin. Log in (with the superuser credentials).
 7. You will have to create one user from the admin panel.Create one user and add it to the new pcuser. Log out.
-8. Now go to http://192.168.33.10:8000/
+8. Now go to http://192.168.33.10:8000/. Login with the credential of the pcuser that you created from the admin panel.
 9. Done !
 
 
