@@ -1,0 +1,37 @@
+Readme file :
+
+Details about the folders 
+
+infohub : contains the python environment setup, it contains 4 files - init.py, settings.py, urls.py and wsgi.py
+settings.py has the main configuration settings like dependencies, database, timezone etc.
+
+ui : contains the ui page templates of the site, it conains the html,css, js page templates with applied jinja integration. Also, I have used bootstrap for responsiveness and better UI design.
+
+webhub : contains the python-django backend of the site, it conains 7 files - init.py, admin.py, checker.py, models.py, tests.py, urls.py and views.py
+admin.py contains the models that are to be added in the admin panel
+checker.py has a check function that redirects the user to the home page depending upon his current status (i.e. login/logout)
+models.py has all the information about the models we are going to have in the database
+urls.py has the urls of the pages created connected with the respective views
+views.py has all the views, ie function to call different views and render the respective values from the backend
+
+manage.py : is the file that is used to run the application
+
+
+Guidelines to run the application :
+
+I had to reinstall postgres and python on the VM provided. Also, I had to install python-psycopg2 and jinja on the VM. Make sure the internet is working as I have used some online resources right now.
+
+To run the application, 
+1. Start the VM. Install the mentioned dependencies if required
+2. Go to the directory which has manage.py file
+3. Syncing with the database : run the following command from the terminal
+   python manage.py syncdb
+4. You might be asked to create a super user. Create one.
+5. Runnning the server : run the following command from the terminal
+   python manage.py runserver 0.0.0.0:8000
+6. Open the web-browser and go to http://192.168.33.10:8000/admin. Log in.
+7. You will have to create one user from the admin panel.Create one user and add it to the new pcuser. Log out.
+8. Now go to http://192.168.33.10:8000/
+9. Done !
+
+
