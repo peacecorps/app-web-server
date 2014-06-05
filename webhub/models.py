@@ -38,5 +38,8 @@ class Post(models.Model):
     #description
     description_post = models.CharField(max_length=2000)
     
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
     def __unicode__(self):
         return self.owner.user.username
