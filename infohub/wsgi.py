@@ -1,11 +1,7 @@
-"""
-WSGI config for infohub project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
-"""
+#Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+#Author : Vaibhavi Desai
+#Github username : desaivaibhavi
+#email : ranihaileydesai@gmail.com
 
 import os
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "infohub.settings")
