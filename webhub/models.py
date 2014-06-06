@@ -37,26 +37,28 @@ class Post(models.Model):
     title_post = models.CharField(max_length=300)
     #description
     description_post = models.CharField(max_length=2000)
-    
+    #field to note the timestamp when the post was created
     created = models.DateTimeField(auto_now_add=True)
+    #field to note the timestamp when the post was last updated
     updated = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
         return self.owner.user.username
     
-#Post table stores details about revision history posts
+#Post table stores details about revision history of edit of the posts
 
 class RevPost(models.Model):
-    #The owner of the post
+    #The post which is being edited
     owner_rev_post = models.ForeignKey(Post, null=False, related_name='owner_rev_post')
+    #The user who is editing the post
     owner_rev = models.ForeignKey(Pcuser, null=False, related_name='owner_rev')
     #revised title
     title_post_rev = models.CharField(max_length=300)
     #revised description
     description_post_rev = models.CharField(max_length=2000)
-    
+    #field to note the timestamp when the revised version was created
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    
 
     def __unicode__(self):
         return self.owner.user.username    

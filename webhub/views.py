@@ -73,7 +73,7 @@ def malaria(request):
     all_posts = Post.objects.all()
     return HttpResponse(jinja_environ.get_template('malaria.html').render({"all_posts":all_posts, "pcuser":request.user.pcuser}))
 
-#called when a user wants to view a particular post.
+#called when a user wants to view a particular post. Also shows up the revision history
 def view_post(request):
     retval = check(request)
     if retval <> None:
@@ -85,6 +85,7 @@ def view_post(request):
         postobj=Post.objects.get(id=key)
         
         revpostobj = RevPost.objects.filter(owner_rev_post_id=key)
+        
         return HttpResponse(jinja_environ.get_template('viewpost.html').render({"pcuser":request.user.pcuser, 'post':postobj, 'revpostobj':revpostobj}))
     except Exception as e:
         return HttpResponse(e)
@@ -131,7 +132,7 @@ def edit_post_page(request):
     except Exception as e:
         return HttpResponse(e)
     
-#Called when a user edits his/her post.
+#Called when a user edits his/her post and also saves the revision history
 @csrf_exempt
 def edit_post(request):
     retval = check(request)
