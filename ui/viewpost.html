@@ -54,9 +54,9 @@ email : ranihaileydesai@gmail.com
         <div style="width:600px; height:300px; margin:0 auto; background-color:#0d8b97;"><br><br>
         <center><b><h3><font color="white">Revision History</font></h3></b></center>
             <p><font color="white"><h4>The post was created by {{post.owner}} on {{post.created}}</h4></font></p>
-            <p><font color="white"><h4>The post was updated by {{post.owner}} on {{post.updated}}</h4></font></p>
-            See the edits
-            abcd changed to -> cdef 
+            {% for rev in revpostobj %}
+            <p><font color="white"><h4>The post was updated by {{rev.owner_rev.user.first_name}} on {{rev.created}}</h4></font></p>
+            {% endfor %}
             
         </div>
         

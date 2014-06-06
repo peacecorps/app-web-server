@@ -83,7 +83,9 @@ def view_post(request):
         pcuser=request.user.pcuser
         key=request.REQUEST['key']
         postobj=Post.objects.get(id=key)
-        return HttpResponse(jinja_environ.get_template('viewpost.html').render({"pcuser":request.user.pcuser, 'post':postobj}))
+        
+        revpostobj = RevPost.objects.filter(owner_rev_post_id=key)
+        return HttpResponse(jinja_environ.get_template('viewpost.html').render({"pcuser":request.user.pcuser, 'post':postobj, 'revpostobj':revpostobj}))
     except Exception as e:
         return HttpResponse(e)
     
@@ -139,10 +141,18 @@ def edit_post(request):
     owner = request.user.pcuser
     postid = request.REQUEST['postid']
     postobj = None
+    revpostobj = None
     try:
         postobj = Post.objects.get(pk=postid)
     except Exception as e:
         return HttpResponse(e)
+    
+    entry = RevPost(owner_rev=owner, 
+                    owner_rev_post=postobj, 
+                 title_post_rev=postobj.title_post,
+                 description_post_rev=postobj.description_post,
+                 )
+    entry.save()
     
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
@@ -156,6 +166,8 @@ def edit_post(request):
     postobj.owner.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
                                                                           "text":'Post edited successfully.',"text1":'Click here to view post.', "link": '/view_post/?key=' + str(postobj.id)}))
+
+
 
 #Called when a user cancels his post. 
 @csrf_exempt
@@ -220,6 +232,7 @@ def edit_profile(request):
     
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
                                                                           "text":'Profile edit successful.',"text1":'Click here to view the profile.',"link":'/profile/?id='+ str(request.user.pcuser.id)}))
+
 
 #called when user wishes to go to the Peacetrack from dashboard
 def peacetrack(request):

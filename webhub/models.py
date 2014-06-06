@@ -43,3 +43,20 @@ class Post(models.Model):
 
     def __unicode__(self):
         return self.owner.user.username
+    
+#Post table stores details about revision history posts
+
+class RevPost(models.Model):
+    #The owner of the post
+    owner_rev_post = models.ForeignKey(Post, null=False, related_name='owner_rev_post')
+    owner_rev = models.ForeignKey(Pcuser, null=False, related_name='owner_rev')
+    #revised title
+    title_post_rev = models.CharField(max_length=300)
+    #revised description
+    description_post_rev = models.CharField(max_length=2000)
+    
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.owner.user.username    
