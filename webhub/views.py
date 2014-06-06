@@ -224,3 +224,4 @@ def edit_profile(request):
 #called when user wishes to go to the Peacetrack from dashboard
 def peacetrack(request):
     return HttpResponse(jinja_environ.get_template('peacetrack.html').render({"pcuser":None}))  
+
