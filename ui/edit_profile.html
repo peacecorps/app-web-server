@@ -1,0 +1,83 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+
+<!-- this page enables the user to edit his profile -->
+
+<html>
+    <head>
+        <title>Edit Profile | {{pcuser.user.first_name}}</title>
+    </head>
+    <body>
+        {% include "header.html" %}
+        <br><br><br><br><br><br>
+        
+        
+        <div style="width:800px; height:500px; margin:0 auto; background-color:#0d8b97;">
+        <br>
+        <center><b><h3><font color="white">Edit Profile</font></h3></b></center>
+        <br>
+            
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-7">
+                <br>
+                <form action="/edit_profile/?id={{pcuser.user.id}}" method="post">
+                
+                <table>
+                <tr>
+                    <td><label> <h4><b><font color="white">First Name:</font></b> </label></td></h4>
+                    <td><h4><input type="text" name="first_name" value="{{pcuser.user.first_name}}"></h4></td>
+                </tr>
+                <tr>
+                    <td><label> <h4><b><font color="white">Last Name: </font></b> </label></td></h4>
+                    <td><h4><input type="text" name="last_name" value="{{pcuser.user.last_name}}"></h4></td>
+                </tr>
+                <tr>
+                    <td><label> <h4><b><font color="white">Mobile:</font></b> </label></td></h4>
+                    <td><h4><input type="text" name="phone" value="{{pcuser.phone}}"></h4></td>
+                </tr>
+                <tr>
+                    <td><label> <h4><b><font color="white">Email:</font></b> </label></td></h4>
+                    <td><h4><input type="text" name="email" value="{{pcuser.user.email}}"></h4></td>
+                </tr>
+                <tr>
+                    <td><label> <h4><b><font color="white">Gender:</font></b> </label></td></h4>
+                    <td><h4><input type="text" name="gender" value="{{pcuser.gender}}"></h4></td>
+                </tr>
+                <tr>
+                    <td><label> <h4><b><font color="white">Location:</font></b> </label></td></h4>
+                    <td><h4><input type="text" name="location" value="{{pcuser.location}}"></h4></td>
+                </tr>
+                </table>                
+                    
+                
+            </div>
+            <div class="col-md-3">
+                <figure>
+                    <img src="http://i.imgur.com/dnjclWV.png" class="img-responsive" style="width:350px; height:180px; border:2px solid #2c0f00;">
+                    <figcaption style="background-color: #2c0f00; padding-top:1px; padding-bottom:1px;"><center><font color="#e2d7bb"><b><h4>User {{pcuser.user}}</h4></b></font></center></figcaption>
+                </figure>
+            </div>
+            
+            <div class="col-md-1">
+            </div>
+        </div><br><br>
+            <center>
+                <input class="btn" type="submit" name="submit" value="Update">
+                <button class="btn"><a href="/#"><font color="black">Cancel</font></a></center></button>
+            </center>
+            </form><br>
+            
+            
+        </div>
+        
+        <br><br>
+        {% include "footer.html" %}
+    </body>
+</html>
