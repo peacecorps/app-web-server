@@ -35,6 +35,118 @@ def dashboard(request):
     return HttpResponse(jinja_environ.get_template('dashboard.html').render(template_values)) 
 
 
+#Calls the signup page. If the user us already logged in, s/he will be redirected to dashboard.
+def signup_page(request):
+    if request.user.is_authenticated():
+        redirect_url = "/"
+        if 'redirect_url' in request.REQUEST.keys():
+            redirect_url = request.REQUEST['redirect_url']
+        return HttpResponse(jinja_environ.get_template('redirect.html').render({"pcuser":None,"redirect_url":redirect_url}))
+
+    else:
+        return HttpResponse(jinja_environ.get_template('signup.html').render({"pcuser":None}))
+    
+    
+#Called when a user clicks submit button in signup. Here a verification mail is also sent to the user.
+@csrf_exempt
+def signup_do(request):
+    if request.user.is_authenticated():
+        logout(request)
+        redirect_url = "/"
+        if 'redirect_url' in request.REQUEST.keys():
+            redirect_url = request.REQUEST['redirect_url']
+        return HttpResponse(jinja_environ.get_template('redirect.html').render({"pcuser":None,"redirect_url":redirect_url}))
+    
+    username = request.REQUEST['username']
+    password = request.REQUEST['password']
+    confirmpassword = request.REQUEST['confirmpassword']
+        
+    if password <> confirmpassword:
+      return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                            "text":'<p>Passwords don\'t match. Please Enter again.</p><p>Click OK to go back to signup page.</p>',"link":'/signup_page/'}))
+    
+    first_name = request.REQUEST['first_name']
+    last_name = request.REQUEST['last_name']
+    phone = request.REQUEST['phone']
+    email = request.REQUEST['email']
+    gender = request.REQUEST['gender']
+    location = request.REQUEST['location']
+
+    try:
+        if len(User.objects.filter(email=email))<>0:
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                                  "text":'<p>Someone has already registered using this email.</p><p>If you have forgotten your password, click <a href=\'/forgot_pass/\'</p><p>Click <a href=\'/signup_page/\'>here</a> to go back to signup page.</p>',"link":'0'}))
+    except:
+        pass
+    
+    if '@' not in email or '.' not in email:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'<p>Invalid email, please Enter again.</p><p>Go Back or click OK to go to signup page.</p>',"link":"/signup_page/"}))
+    
+        
+    if first_name == "":
+        first_name = username
+    
+    try:
+        user = User.objects.create_user(username, email, password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        entry = Pcuser(user=user, phone=phone, gender=gender, location=location, verified = uuid.uuid4().hex)
+        
+        entry.save()
+        #send email to user
+        login_do(request)
+        return send_verification_email(request)
+    except Exception as e:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'<p>Username already exists. Please enter some other username.</p><p>Go Back or click OK to go to signup page.</p>',"link":'/signup_page/'}))
+    
+
+    
+#Function to send verification mail to user's email after he signs up.
+def send_verification_email(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('index.html').render({"pcuser":None}))
+
+    try:
+        request.user.pcuser
+    except:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'No Rider associated!. Please go back or click  to go to the homepage' , "link": '/'}))
+    entry=request.user
+    subject = 'Peace Corps Verification Email'
+    msg = 'Subject: %s \n\nYour email has been registered on pchub.com.\nPlease\
+    click on the following link to verify (or copy paste it in your browser if needed)\n\n\
+    %s/verify?code=%s\n\nIf you have not registered on our website, please ignore.' % (subject, website, entry.pcuser.verified)
+    
+    x = send_email(msg, entry.email)
+    if x[0]==0:
+        return x[1]
+    
+    return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser, "text":'<p>Verification Email sent! Please Check your email inbox.</p><p>To re-send verification email, click <a href=\'/send_verification_email/\'>here</a>.</p><p>Click <a href=\'/logout_do/\'>here</a> to go to the homepage and log-in again</p>', "link":'0'}))
+
+
+
+#Function to send emails using google smtplib. Takes email id and message as input.            
+def send_email(msg, email):
+    gmailLogin = 'ranipc93'
+    gmailPas = 'ranipc1993'
+    fro = gmailLogin + "@gmail.com"
+    
+    to = email
+    
+    server = smtplib.SMTP_SSL('smtp.googlemail.com',SMTP_PORT)
+    a = server.login( gmailLogin, gmailPas)
+    server.sendmail(fro, to,msg)
+    return (1,1)
+
+
+
+    
+    
+
+
 #Called when a user clicks login button. 
 @csrf_exempt
 def login_do(request):
