@@ -51,16 +51,22 @@ email : ranihaileydesai@gmail.com
         <br>
         </div>
         <br>
-        <div style="width:600px; height:300px; margin:0 auto; background-color:#0d8b97;"><br>
+        <div style="width:600px; height:400px; margin:0 auto; background-color:#0d8b97;"><br>
         <center><b><h4><font color="white"><u>Revision History of this Post</u></font></h4></b></center><br>
             
         <div class="row">
             <div class="col-md-1">
             </div>
             <div class="col-md-10">    
-                <p><font color="white">The post was created by {{post.owner}} on {{post.created}}</font></p><br>
+                <h5><font color="white">The post was created by <a href="/profile/?id={{post.owner.id}}"><font color="white"><b><u>{{post.owner}}</u></b></font></a> on {{post.created}}</font></h5>
+                <center><button class="btn" style="padding: 5px 9px; font-size: @baseFontSize - 2px; line-height: @baseLineHeight - 2px;">Restore</button></center>
+
                 {% for rev in revpostobj %}
-                <p><font color="white">The post was updated by {{rev.owner_rev.user.first_name}} on {{rev.created}}</font></p>
+                <h5><font color="white">The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</font></h5>
+                <center>
+                <button class="btn"  style="padding: 5px 9px; font-size: @baseFontSize - 2px; line-height: @baseLineHeight - 2px;">See changes</button>
+                <button class="btn" style="padding: 5px 9px; font-size: @baseFontSize - 2px; line-height: @baseLineHeight - 2px;">Restore</button>
+                </center>
                 {% endfor %}
             </div>
             <div class="col-md-1">
