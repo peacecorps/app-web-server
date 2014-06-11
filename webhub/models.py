@@ -24,6 +24,11 @@ class Pcuser(models.Model):
     #for reset_password
     reset_pass = models.CharField(default="",max_length=320)
     
+    #verification status
+    #1 - unverified
+    #any other number = verification code
+    verified = models.CharField(max_length=100)
+    
     def __unicode__(self):
         return self.user.username
     

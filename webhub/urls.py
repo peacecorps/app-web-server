@@ -27,7 +27,10 @@ urlpatterns = patterns('',
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
     url(r'^edit_profile_page/$', views.edit_profile_page, name='edit_profile_page'),
-    
+    url(r'^forgot_pass_page/$', views.forgot_pass_page, name='forgot_pass_page'),
+    url(r'^forgot_pass/$', views.forgot_pass, name='forgot_pass'),
+    url(r'^verify/$', views.verify, name='verify'),
+
 )
 
 
