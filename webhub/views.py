@@ -383,7 +383,7 @@ def edit_profile(request):
 #Forgot Password page call function.
 def forgot_pass_page(request):
     if request.user.is_authenticated():
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.rider,
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
                                                                               "text":'<p>Please log out before requesting reset in password.</p>\
                                                                                   <p>Click OK to go to the homepage</p>',"link":'/'}))
     return HttpResponse(jinja_environ.get_template('forgot_password.html').render({"pcuser":None}))
@@ -409,14 +409,14 @@ def forgot_pass(request):
     if user.email <> request.REQUEST['email']:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
                                                                               "text":'Invalid email. Please go back or click OK to go to the homepage',"link":'/'}))
-    user.rider.reset_pass = uuid.uuid4().hex
-    user.rider.save()
+    user.pcuser.reset_pass = uuid.uuid4().hex
+    user.pcuser.save()
     
     subject = "Password Reset Request"
-    msg = 'Subject: %s \n\nYou have requested for a password reset on RideBuddy\n\
+    msg = 'Subject: %s \n\nYou have requested for a password reset on Mobile App Control Center\n\
     Please click on the following link (or copy paste in your browser) to reset your password.\n\n\
     %s/reset_pass_page/?reset_pass=%s&email=%s\n\n\
-    If you have not requested for a reset of password, please ignore.' % (subject, website, user.rider.reset_pass, user.email)
+    If you have not requested for a reset of password, please ignore.' % (subject, website, user.pcuser.reset_pass, user.email)
     
     x = send_email(msg, user.email)
     if x[0] == 0:
@@ -429,6 +429,84 @@ def forgot_pass(request):
                                                                                   <p>Click OK to go to the homepage</p>',"link":'/'}))
     
 
+    
+#Reset Password page call function.
+@csrf_exempt
+def reset_pass_page(request):
+    if request.user.is_authenticated():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
+                                                                              "text":'<p>Please log out before requesting reset in password.</p>\
+                                                                                  <p>Click OK to go to the homepage</p>',"link":'/'}))
+    if "reset_pass" not in request.REQUEST.keys() or 'email' not in request.REQUEST.keys():
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'<p>Invalid Request</p>\
+                                                                                  Click OK to go to the homepage</p>', "link":'/'}))
+    reset_pass = request.REQUEST['reset_pass']
+    if reset_pass == "":
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'<p>Invalid Request</p>\
+                                                                                  <p>click OK to go to the homepage</p>', "link":'/'}))
+    user = Pcuser.objects.filter(reset_pass=reset_pass)
+    if len(user)==0:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                                "text":'Invalid Request. Please go back or click OK to go to the homepage',"link":'/'}))
+    
+    user = user[0].user
+    
+    if user.email <> request.REQUEST['email']:
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                                "text":'Invalid Email. Please go back or click OK to go to the homepage',"link":'/'}))
+    return HttpResponse(jinja_environ.get_template('reset_password.html').render({'pcuser':None, 'reset_pass':reset_pass}))
+
+
+
+#Called when the user clicks change password button. Checks if the previous password is valid or not.
+@csrf_exempt
+def change_pass(request):
+    if "reset_pass" in request.REQUEST.keys():
+        reset_pass = request.REQUEST['reset_pass']
+        if reset_pass == "":
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                                  "text":'<p>Invalid Request</p>\
+                                                                                      <p>click OK to go to the homepage</p>',"link":'/'}))
+        user = Pcuser.objects.filter(reset_pass=reset_pass)
+        if len(user)==0 or 'pass' not in request.REQUEST.keys():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                                  "text":'Invalid Request. Please go back or click OK to go to the homepage',"link":'/'}))
+        user = user[0].user
+        user.set_password(request.REQUEST['pass'])
+        user.save()
+        user.pcuser.reset_pass = ""
+        user.pcuser.save()
+        logout(request)
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'Password Changed. Please click OK to go to the homepage and log in again.',"link":'/logout_do/'}))
+    else:
+        retval = check(request)
+        if retval <> None:
+            return retval
+        if "pass" not in request.REQUEST.keys() or "oldpass" not in request.REQUEST.keys():
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
+                                                                                  "text":'Invalid Request. Please go back or click OK to go to the homepage',"link":'/'}))
+        if not request.user.check_password(request.REQUEST['oldpass']):
+            return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
+                                                                                  "text":'Invalid Old Password. Click OK to go to the homepage',"link":'/'}))
+        request.user.set_password(request.REQUEST['pass'])
+        request.user.save()
+        logout(request)
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
+                                                                              "text":'Password Changed. Please click OK to go to the homepage and log in again.',"link":'/logout_do/'}))
+    
+    
+    
+#Change password page call function    
+def change_pass_page(request):
+    retval = check(request)
+    if retval <> None:
+        return retval
+    return HttpResponse(jinja_environ.get_template('change_password.html').render({"pcuser":request.user.pcuser}))
+        
+    
 
 
 #called when user wishes to go to the Peacetrack from dashboard

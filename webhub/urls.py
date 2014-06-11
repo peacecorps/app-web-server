@@ -30,6 +30,10 @@ urlpatterns = patterns('',
     url(r'^forgot_pass_page/$', views.forgot_pass_page, name='forgot_pass_page'),
     url(r'^forgot_pass/$', views.forgot_pass, name='forgot_pass'),
     url(r'^verify/$', views.verify, name='verify'),
+    url(r'^reset_pass_page/$', views.reset_pass_page, name='reset_pass_page'),
+    url(r'^change_pass/$', views.change_pass, name='change_pass'),
+    url(r'^change_pass_page/$', views.change_pass_page, name='change_pass_page'),
+    
 
 )
 
