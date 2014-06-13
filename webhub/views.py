@@ -18,6 +18,8 @@ import uuid
 from jinja2.ext import loopcontrols
 from webhub.checker import check
 from webhub.models import *
+from rest_framework import viewsets
+from webhub.serializers import UserSerializer
 import smtplib
 
 #SMTP port for sending emails
@@ -27,6 +29,18 @@ SMTP_PORT = 465
 website = "http://192.168.33.10:8000"
 
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']), extensions=[loopcontrols])
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    
+    
+    
 
 #Calls index page
 def index(request):
