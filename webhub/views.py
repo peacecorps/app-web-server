@@ -19,7 +19,9 @@ from jinja2.ext import loopcontrols
 from webhub.checker import check
 from webhub.models import *
 from rest_framework import viewsets
-from webhub.serializers import UserSerializer
+from webhub.serializers import *
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 import smtplib
 
 #SMTP port for sending emails
@@ -38,6 +40,63 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
+
+    
+class JSONResponse(HttpResponse):
+    """
+    An HttpResponse that renders its content into JSON.
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+        
+        
+        
+@csrf_exempt
+def pcuser_list(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        pcuser = Pcuser.objects.all()
+        serializer = PcuserSerializer(pcuser, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = PcuserSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)
+    
+    
+@csrf_exempt
+def pcuser_detail(request, pk):
+    """
+    Retrieve, update or delete a code snippet.
+    """
+    try:
+        pcuser = Pcuser.objects.get(pk=pk)
+    except Pcuser.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = PcuserSerializer(pcuser)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = PcuserSerializer(pcuser, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data)
+        return JSONResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        pcuser.delete()
+        return HttpResponse(status=204)
     
     
     

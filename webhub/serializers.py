@@ -9,3 +9,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('url', 'username', 'email')
 
 
+class PcuserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pcuser
+        fields = ('user', 'location', 'phone', 'gender','id')

@@ -37,9 +37,11 @@ urlpatterns = patterns('',
     url(r'^reset_pass_page/$', views.reset_pass_page, name='reset_pass_page'),
     url(r'^change_pass/$', views.change_pass, name='change_pass'),
     url(r'^change_pass_page/$', views.change_pass_page, name='change_pass_page'),
+    url(r'^pcuser/$', views.pcuser_list, name='pcuser_list'),
+    url(r'^pcuser/(?P<pk>[0-9]+)/$', views.pcuser_detail, name='pcuser_detail'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
-
+    
 
     
 
