@@ -9,7 +9,7 @@ email : ranihaileydesai@gmail.com
 <!-- page for the profile of a user -->
 <html>
     <head>
-        <title>User Profile | {{profiler.first_name}}</title>
+        <title>User Profile | {{profiler.user.first_name}}</title>
     </head>
     <body>
         {% include "header.html" %}
@@ -43,7 +43,9 @@ email : ranihaileydesai@gmail.com
             </div>
         </div><br>
         <center>
+            {% if profiler.user.username == pcuser  .user.username %}
             <button class="btn" type="button" onclick="window.location.href='/edit_profile_page/?id={{profiler.id}}'">Edit Profile</button>
+            {% endif %}
             <button class="btn" type="button" onclick="window.location.href='/change_pass_page/'">Change Password</button>
         </center>
         

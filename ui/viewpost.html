@@ -64,14 +64,14 @@ email : ranihaileydesai@gmail.com
                 {% for rev in revpostobj %}
                 <li><h5><font color="white">The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</font></h5></li>
                 
-                <h6><font color="white">
+                <h5><font color="#e2d7bb">
                     {% if rev.title_change %}
                     The title has been changed from "{{rev.title_post_rev}}" to "{{post.title_post}}"
                     {% endif %}
                     {% if rev.description_change %}
                     The description has been changed from "{{rev.description_post_rev}}" to "{{post.description_post}}"
                     {% endif %}
-                </font></h6>    
+                </font></h5>    
                     
                 {% endfor %}
             </div>
