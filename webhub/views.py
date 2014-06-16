@@ -22,6 +22,11 @@ from rest_framework import viewsets
 from webhub.serializers import *
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework import permissions
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 import smtplib
 
 #SMTP port for sending emails
@@ -40,67 +45,86 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     
-
     
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
-        
-        
-        
-@csrf_exempt
+#List all pcusers, or create a new pcuser.
+@api_view(['GET', 'POST'])
 def pcuser_list(request):
-    """
-    List all code snippets, or create a new snippet.
-    """
     if request.method == 'GET':
         pcuser = Pcuser.objects.all()
         serializer = PcuserSerializer(pcuser, many=True)
-        return JSONResponse(serializer.data)
+        return Response(serializer.data)
 
     elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = PcuserSerializer(data=data)
+        serializer = PcuserSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
-    
-    
-@csrf_exempt
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Retrieve, update or delete a pcuser instance.
+@api_view(['GET', 'PUT', 'DELETE'])
 def pcuser_detail(request, pk):
-    """
-    Retrieve, update or delete a code snippet.
-    """
     try:
         pcuser = Pcuser.objects.get(pk=pk)
     except Pcuser.DoesNotExist:
-        return HttpResponse(status=404)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = PcuserSerializer(pcuser)
-        return JSONResponse(serializer.data)
+        return Response(serializer.data)
 
     elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = PcuserSerializer(pcuser, data=data)
+        serializer = PcuserSerializer(pcuser, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializer.data)
-        return JSONResponse(serializer.errors, status=400)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         pcuser.delete()
-        return HttpResponse(status=204)
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
     
-    
+#List all posts, or create a new post.
+@api_view(['GET', 'POST'])
+def post_list(request):
+     if request.method == 'GET':
+        post = Post.objects.all()
+        serializer = PostSerializer(post, many=True)
+        return Response(serializer.data)
 
+     elif request.method == 'POST':
+        serializer = PostSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Retrieve, update or delete a post instance.
+@api_view(['GET', 'PUT', 'DELETE'])
+def post_detail(request, pk):
+    try:
+        post = Post.objects.get(pk=pk)
+    except Pcuser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = PostSerializer(post, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+
+    
 #Calls index page
 def index(request):
     return HttpResponse(jinja_environ.get_template('index.html').render({"pcuser":None}))
