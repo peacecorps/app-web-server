@@ -181,7 +181,7 @@ def signup_do(request):
     send_verification_email(request)
     
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
-                                                                              "text":'<p>Username already exists. Please enter some other username.</p><p>Go Back or click OK to go to signup page.</p>',"link":'/signup_page/'}))
+                                                                              "text":'<p>Verification email sent. check your inbox and verify the account.</p>',"text1":'<p>Go Back or click OK to go to signup page.</p>',"link":'/signup_page/'}))
     
 
     
@@ -227,7 +227,7 @@ def send_email(msg, email):
 def verify(request):
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
-                                                                              "text":'Verification Successful. Go to homepage' , "link": '/'}))
+                                                                              "text":'Verification Successful.',"text1":'Go to homepage' , "link": '/'}))
 #        return HttpResponse(jinja_environ.get_template('index.html').render({"pcuser":Non,
 #                                                                                   "code":request.REQUEST['code']}))
 #        index(request)
@@ -235,21 +235,21 @@ def verify(request):
         request.user.pcuser
     except:
         return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":None,
-                                                                             "text":'<p>No Pcuser associated.</p><p>Please go back or click OK to go to the homepage</p>',"link":'/'}))
+                                                                             "text":'<p>No Pcuser associated.</p>',"text1":'<p>Please click here to go to the homepage</p>',"link":'/'}))
     
     code = request.REQUEST['code']
     pcuser = request.user.pcuser
     if pcuser.verified == '1':
         return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                              "text":'<p>Verification successful.</p><p>Click OK to go to the homepage</p>',"link":'/'}))
+                                                                              "text":'<p>Verification successful.</p>',"text1":'<p>Click here to go to the homepage</p>',"link":'/'}))
     elif code == pcuser.verified:
         pcuser.verified = '1'
         pcuser.save()
         return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                              "text":'<p>Verification successful.</p><p>Click OK to go to the homepage</p>',"link":'/'}))
+                                                                              "text":'<p>Verification successful.</p>',"text1":'<p>Click here to go to the homepage</p>',"link":'/'}))
     
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                          "text":'<p>Verification Failed.</p><p>Please go back or click OK to go to the homepage</p>',"link":'/'}))
+                                                                          "text":'<p>Verification Failed.</p>',"text1":'<p>Please go back or click here to go to the homepage</p>',"link":'/'}))
 
 
 

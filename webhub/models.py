@@ -66,4 +66,4 @@ class RevPost(models.Model):
     
 
     def __unicode__(self):
-        return self.owner.user.username    
+        return self.owner_rev.user.username    
