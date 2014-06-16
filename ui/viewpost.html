@@ -62,11 +62,17 @@ email : ranihaileydesai@gmail.com
                 
 
                 {% for rev in revpostobj %}
-                <h5><font color="white">The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</font></h5>
-                <center>
-                <button class="btn"  style="padding: 5px 9px; font-size: @baseFontSize - 2px; line-height: @baseLineHeight - 2px;">See changes</button>
-                <button class="btn" style="padding: 5px 9px; font-size: @baseFontSize - 2px; line-height: @baseLineHeight - 2px;">Restore</button>
-                </center>
+                <li><h5><font color="white">The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</font></h5></li>
+                
+                <h6><font color="white">
+                    {% if rev.title_change %}
+                    The title has been changed from "{{rev.title_post_rev}}" to "{{post.title_post}}"
+                    {% endif %}
+                    {% if rev.description_change %}
+                    The description has been changed from "{{rev.description_post_rev}}" to "{{post.description_post}}"
+                    {% endif %}
+                </font></h6>    
+                    
                 {% endfor %}
             </div>
             <div class="col-md-1">

@@ -63,6 +63,10 @@ class RevPost(models.Model):
     description_post_rev = models.CharField(max_length=2000)
     #field to note the timestamp when the revised version was created
     created = models.DateTimeField(auto_now_add=True)
+    #change in title
+    title_change = models.BooleanField(default=False)
+    #change in description
+    description_change = models.BooleanField(default=False)
     
 
     def __unicode__(self):

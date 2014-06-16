@@ -391,15 +391,50 @@ def edit_post(request):
     except Exception as e:
         return HttpResponse(e)
     
-    entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                 title_post_rev=postobj.title_post,
-                 description_post_rev=postobj.description_post,
-                 )
-    entry.save()
-    
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
+    
+    if postobj.title_post <> title_post:
+        if postobj.description_post <> description_post:
+            entry = RevPost(owner_rev=owner, 
+                 owner_rev_post=postobj, 
+                 title_post_rev=postobj.title_post,
+                 description_post_rev=postobj.description_post,
+                 title_change=True,
+                 description_change=True,
+                 )
+            entry.save()
+        else:
+            entry = RevPost(owner_rev=owner, 
+                 owner_rev_post=postobj, 
+                 title_post_rev=postobj.title_post,
+                 description_post_rev=postobj.description_post,
+                 title_change=True,
+                 description_change=False,
+                 )
+            entry.save()
+    else:        
+        if postobj.description_post <> description_post:
+            entry = RevPost(owner_rev=owner, 
+                 owner_rev_post=postobj, 
+                 title_post_rev=postobj.title_post,
+                 description_post_rev=postobj.description_post,
+                 title_change=False,
+                 description_change=True,
+                 )
+            entry.save()
+        else:
+            entry = RevPost(owner_rev=owner, 
+                 owner_rev_post=postobj, 
+                 title_post_rev=postobj.title_post,
+                 description_post_rev=postobj.description_post,
+                 title_change=False,
+                 description_change=False,
+                 )
+            entry.save()
+    
+    
+        
     
     
     postobj.title_post = title_post
