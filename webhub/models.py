@@ -35,6 +35,7 @@ class Pcuser(models.Model):
     #for reset_password
     reset_pass = models.CharField(default="",max_length=320)
     
+    
     #path to default user image
     image = models.CharField(max_length=300, default="http://i.imgur.com/dnjclWV.png")
     #image
@@ -58,6 +59,8 @@ class Post(models.Model):
     title_post = models.CharField(max_length=300)
     #description
     description_post = models.CharField(max_length=2000)
+    #link to important documents
+    link_post = models.CharField(max_length=2000)
     #field to note the timestamp when the post was created
     created = models.DateTimeField(auto_now_add=True)
     #field to note the timestamp when the post was last updated
@@ -77,12 +80,16 @@ class RevPost(models.Model):
     title_post_rev = models.CharField(max_length=300)
     #revised description
     description_post_rev = models.CharField(max_length=2000)
+    #revised link to important documents
+    link_post_rev = models.CharField(max_length=2000)
     #field to note the timestamp when the revised version was created
     created = models.DateTimeField(auto_now_add=True)
     #change in title
     title_change = models.BooleanField(default=False)
     #change in description
     description_change = models.BooleanField(default=False)
+    #change in link to important documents
+    link_change = models.CharField(max_length=2000)
     
 
     def __unicode__(self):
