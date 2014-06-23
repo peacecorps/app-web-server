@@ -19,7 +19,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','192.168.33.10','192.168.33.10:8000']
 
 
 # Application definition
@@ -30,7 +30,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.staticfiles',   
     'webhub',
     'rest_framework',
 )
@@ -79,8 +80,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+MEDIA_ROOT='/vagrant/submit/media/propics/'
 STATIC_URL = '/static/'
+STATIC_ROOT = ''
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    '/vagrant/submit/media/propics/',
+    '/vagrant/submit/app-web-server/ui/bootstrap/fonts',
+    'lol',
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),

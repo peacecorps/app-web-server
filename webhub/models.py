@@ -9,8 +9,19 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 import os
 from uuid import uuid4
+from paths import cpspath
+
+
+    
+#To update the filename of the newly uploaded photo
+def update_filename(instance, filename):
+    path = '/vagrant/submit/media/propics/'
+    format = instance.user.username + ".jpg"
+    return os.path.join(path, format)
+
 
 #Django provides a table called user that stores basic user information like username, password and email id.
+
 
 class Pcuser(models.Model):
     #username
@@ -24,6 +35,11 @@ class Pcuser(models.Model):
     #for reset_password
     reset_pass = models.CharField(default="",max_length=320)
     
+    #path to default user image
+    image = models.CharField(max_length=300, default="http://i.imgur.com/dnjclWV.png")
+    #image
+    imageobj = models.ImageField(upload_to=update_filename)
+    
     #verification status
     #1 - unverified
     #any other number = verification code
@@ -31,8 +47,8 @@ class Pcuser(models.Model):
     
     def __unicode__(self):
         return self.user.username
-    
-    
+
+
 #Post table stores details about posts
 
 class Post(models.Model):

@@ -26,6 +26,7 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from paths import cpspath
 
 import smtplib
 
@@ -358,8 +359,7 @@ def post_new(request):
                  )
     entry.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                          "text":'Post successful.',"text1":'Click here to go to home.',
-                                                                          "link": '/'}))
+                                                                          "text":'Post created successfully.',"text1":'Click here to view post.', "link": '/view_post/?key=' + str(entry.id)}))
 
 #Calls the edit post page. Also, sends the autofill form data.    
 def edit_post_page(request):
@@ -495,6 +495,29 @@ def edit_profile(request):
     if not request.user.is_authenticated():
         return HttpResponse(jinja_environ.get_template('index.html').render({"pcuser":None}))
 
+    
+    #To remove profile picture
+    if 'reset_image' in request.REQUEST.keys():
+        request.user.pcuser.image = "http://vfcstatic.r.worldssl.net/assets/car_icon-e0df962a717a5db6ebc8b37e80b05713.png"
+        if str(request.user.pcuser.imageobj) <> '':
+            path = '/vagrant/submit/media/propics/' + request.user.username + request.user.pcuser.imageobj.url[request.user.pcuser.imageobj.url.rfind('.'):]
+            if os.path.isfile(path):
+                os.remove(path)
+        request.user.pcuser.save()
+        return edit_profile_page(request)
+    
+    
+    if 'image' in request.FILES.keys():
+        #delete old file
+        if str(request.user.pcuser.imageobj) <> '':
+            path = '/vagrant/submit/media/propics/' + request.user.username + ".jpg"
+            if os.path.isfile(path):
+                os.remove(path)
+        request.user.pcuser.imageobj = request.FILES['image']
+        request.user.pcuser.image = '/static/' + request.user.username + ".jpg"
+    
+    
+    
     
     
     
