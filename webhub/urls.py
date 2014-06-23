@@ -45,8 +45,12 @@ urlpatterns = patterns('',
     url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
-    
+    url(r'^aboutPC/$', views.aboutPC, name='aboutPC'),
+    url(r'^policies/$', views.policies, name='policies'),
+    url(r'^details/$', views.details, name='details'),
+    url(r'^helpPC/$', views.helpPC, name='helpPC'),
 )
+
 
 
 

@@ -726,3 +726,20 @@ def change_pass_page(request):
 def peacetrack(request):
     return HttpResponse(jinja_environ.get_template('peacetrack.html').render({"pcuser":None}))  
 
+#called when user wishes to go to the Peacetrack from dashboard
+def aboutPC(request):
+    return HttpResponse(jinja_environ.get_template('aboutPC.html').render({"pcuser":None}))  
+
+#called when user wishes to go to the Peacetrack from dashboard
+def policies(request):
+    return HttpResponse(jinja_environ.get_template('policies.html').render({"pcuser":None}))  
+
+#called when user wishes to go to the Peacetrack from dashboard
+def details(request):
+    return HttpResponse(jinja_environ.get_template('details.html').render({"pcuser":None}))  
+
+#called when user wishes to go to the Peacetrack from dashboard
+def helpPC(request):
+    return HttpResponse(jinja_environ.get_template('helpPC.html').render({"pcuser":None}))  
+
+

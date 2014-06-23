@@ -61,7 +61,7 @@ email : ranihaileydesai@gmail.com
         <br>
         </div>
         <br>
-        <div style="width:600px; height:400px; margin:0 auto; background-color:#0d8b97;"><br>
+        <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97;"><br>
         <center><b><h4><font color="white"><u>Revision History of this Post</u></font></h4></b></center><br>
             
         <div class="row">
@@ -72,7 +72,7 @@ email : ranihaileydesai@gmail.com
                 
 
                 {% for rev in revpostobj %}
-                <li><h5><font color="white">The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</font></h5></li>
+                <li style="color:white"><h5><font color="white"><b>The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</b></font></h5></li>
                 
                 <h5><font color="#e2d7bb">
                     {% if rev.title_change %}
@@ -81,6 +81,10 @@ email : ranihaileydesai@gmail.com
                     {% if rev.description_change %}
                     The description has been changed from "{{rev.description_post_rev}}" to "{{post.description_post}}"
                     {% endif %}
+                    {% if rev.link_change %}
+                    The link has been changed from "{{rev.link_post_rev}}" to "{{post.link_post}}"
+                    {% endif %}
+                    
                 </font></h5>    
                     
                 {% endfor %}
