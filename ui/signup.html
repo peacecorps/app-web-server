@@ -1,0 +1,79 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+<!-- The sign up page -->
+
+<html>
+<head>
+	<title> Sign Up </title>
+</head>
+<body>
+    
+    {% include "header.html" %}
+    <br><br><br><br><br><br>
+    
+    <center>
+    <font color="white">
+    <div style="width:600px; height:800px; margin:0 auto; background-color:#0d8b97;">
+    <br>
+    <form action="/signup_do/" method="post">
+        <h2>Sign Up Form</h2>
+        <br>
+        
+        <label class="control-label" id="gender" for="radios"><h4>Gender * </h4>
+        </label>
+        
+        <div class="controls">
+                <label class="radio-inline">
+	                   <input maxlength=100 type="radio" name="gender" value="male">Male
+                </label>
+	            <label class="radio-inline">
+	                   <input maxlength=100 type="radio" name="gender" value="female">Female
+                </label>
+       </div>
+        
+        <h4>Username : </h4></font>
+        <input type="text" name="username" align="right" required>
+        <font color="white"><h4>Email id : </h4></font>
+        <input type="email" name="email" required>
+        
+        
+        
+        <font color="white"><h4>First name : </h4></font>
+        <input type="text" name="first_name" align="right" required>
+        <font color="white"><h4>Last name : </h4></font>
+        <input type="text" name="last_name" required>
+        
+        
+        <font color="white"><h4>Set Password : </h4></font>
+        <input type="password" name="password" align="right" required>
+        <font color="white"><h4>Confirm Password : </h4></font>
+        <input type="password" name="confirmpassword" required>
+        
+        <font color="white"><h4>Phone : </h4></font>
+        <input type="text" name="phone" align="right" required>
+        <font color="white"><h4>Location : </h4></font>
+        <input type="text" name="location" required>
+        
+        
+        
+        <br><br>
+        <input class="btn" type="submit" name="submit" value="Submit"><br><br>
+        
+    </form>
+        <br><br>
+    </div>
+    
+    </center>
+    
+    <br><br><br><br><br><br>
+    {% include "footer.html" %}
+
+
+    
+</body>
+</html>

@@ -16,7 +16,7 @@ email : ranihaileydesai@gmail.com
         <br><br><br><br><br><br>
                
         <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
-        <div style="width:600px; height:300px; margin:0 auto; background-color:#0d8b97;">
+        <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97;">
         <br>
          
         <center><b><h3><font color="white">View Post</font></h3></b></center>
@@ -43,24 +43,61 @@ email : ranihaileydesai@gmail.com
                     <p><font color="white"><h4>{{post.description_post}}</h4></font></p>
             </div>
         </div><br>
+            
+        {% if post.link_post %}
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                    <p><font color="white"><h4>Link : </h4></font></p>
+            </div>
+            <div class="col-md-6">
+                    <a href="http://{{post.link_post}}" target="_blank"><p><font color="white"><h4>{{post.link_post}}</h4></font></p></a>
+            </div>
+        </div><br>
+        {% endif %}
+            
+        <center>
+        <img src={{post.image_post}} class="img-responsive" style="width:350px; height:180px; border:2px solid #2c0f00;">
+        </center>          
+           
+        <br>    
         <center>
         <button class="btn" type="button" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button>
         </center>    
             
+        
+            
         <br>
         </div>
         <br>
-        <div style="width:600px; height:300px; margin:0 auto; background-color:#0d8b97;"><br>
+        <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97;"><br>
         <center><b><h4><font color="white"><u>Revision History of this Post</u></font></h4></b></center><br>
             
         <div class="row">
             <div class="col-md-1">
             </div>
             <div class="col-md-10">    
-                <p><font color="white">The post was created by {{post.owner}} on {{post.created}}</font></p><br>
+                <h5><font color="white">The post was created by <a href="/profile/?id={{post.owner.id}}"><font color="white"><b><u>{{post.owner}}</u></b></font></a> on {{post.created}}</font></h5>
+                
+
                 {% for rev in revpostobj %}
-                <p><font color="white">The post was updated by {{rev.owner_rev.user.first_name}} on {{rev.created}}</font></p>
+                <li style="color:white"><h5><font color="white"><b>The post was updated by <a href="/profile/?id={{rev.owner_rev.user.id}}"><font color="white"><b><u>{{rev.owner_rev.user.first_name}}</b></u></font></a> on {{rev.created}}</b></font></h5></li>
+                
+                <h5><font color="#e2d7bb">
+                    {% if rev.title_change %}
+                    The title has been changed from "{{rev.title_post_rev}}" to "{{post.title_post}}"
+                    {% endif %}
+                    {% if rev.description_change %}
+                    The description has been changed from "{{rev.description_post_rev}}" to "{{post.description_post}}"
+                    {% endif %}
+                    {% if rev.link_change %}
+                    The link has been changed from "{{rev.link_post_rev}}" to "{{post.link_post}}"
+                    {% endif %}
+                    
+                </font></h5>    
+                    
                 {% endfor %}
             </div>
             <div class="col-md-1">

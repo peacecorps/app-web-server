@@ -3,13 +3,23 @@
 #Github username : desaivaibhavi
 #email : ranihaileydesai@gmail.com
 
-from django.conf.urls import patterns, url
-
+from django.conf.urls import patterns, url, include
+from rest_framework import routers
 from webhub import views
+
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+
+
 
 urlpatterns = patterns('',
     url(r'^index/$', views.index, name='index'),
     url(r'^$', views.dashboard, name='dashboard'),
+    url(r'^signup_page/$', views.signup_page, name='signup_page'),
+    url(r'^signup_do/$', views.signup_do, name='signup_do'),
+    url(r'^send_verification_email/$', views.send_verification_email, name='send_verification_email'),
+    url(r'^send_email/$', views.send_email, name='send_email'),
     url(r'^login_do/$', views.login_do, name='login_do'),
     url(r'^logout_do/$', views.logout_do, name='logout_do'),
     url(r'^malaria/$', views.malaria, name='malaria'),
@@ -23,8 +33,26 @@ urlpatterns = patterns('',
     url(r'^profile/$', views.profile, name='profile'),
     url(r'^edit_profile/$', views.edit_profile, name='edit_profile'),
     url(r'^edit_profile_page/$', views.edit_profile_page, name='edit_profile_page'),
-    
+    url(r'^forgot_pass_page/$', views.forgot_pass_page, name='forgot_pass_page'),
+    url(r'^forgot_pass/$', views.forgot_pass, name='forgot_pass'),
+    url(r'^verify/$', views.verify, name='verify'),
+    url(r'^reset_pass_page/$', views.reset_pass_page, name='reset_pass_page'),
+    url(r'^change_pass/$', views.change_pass, name='change_pass'),
+    url(r'^change_pass_page/$', views.change_pass_page, name='change_pass_page'),
+    url(r'^pcuser/$', views.pcuser_list, name='pcuser_list'),
+    url(r'^post/$', views.post_list, name='post_list'),
+    url(r'^revpost/$', views.revpost_list, name='revpost_list'),
+    url(r'^pcuser/(?P<pk>[0-9]+)/$', views.pcuser_detail, name='pcuser_detail'),
+    url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
+    url(r'^revpost/(?P<pk>[0-9]+)/$', views.revpost_detail, name='revpost_detail'),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^api/', include(router.urls)),
+    url(r'^aboutPC/$', views.aboutPC, name='aboutPC'),
+    url(r'^policies/$', views.policies, name='policies'),
+    url(r'^details/$', views.details, name='details'),
+    url(r'^helpPC/$', views.helpPC, name='helpPC'),
 )
+
 
 
 

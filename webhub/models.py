@@ -9,8 +9,24 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 import os
 from uuid import uuid4
+from paths import cpspath
+
+
+    
+#To update the filename of the newly uploaded photo
+def update_filename(instance, filename):
+    path = '/vagrant/submit/media/propics/'
+    format = instance.user.username + ".jpg"
+    return os.path.join(path, format)
+
+#To update the filename of the newly uploaded photo of the post
+def update_filename1(instance, filename):
+    path = '/vagrant/submit/media/propics/'
+    format =  instance.owner.user.username + "post.jpg"
+    return os.path.join(path, format)
 
 #Django provides a table called user that stores basic user information like username, password and email id.
+
 
 class Pcuser(models.Model):
     #username
@@ -24,10 +40,21 @@ class Pcuser(models.Model):
     #for reset_password
     reset_pass = models.CharField(default="",max_length=320)
     
+    
+    #path to default user image
+    image = models.CharField(max_length=300, default="http://i.imgur.com/dnjclWV.png")
+    #image
+    imageobj = models.ImageField(upload_to=update_filename)
+    
+    #verification status
+    #1 - unverified
+    #any other number = verification code
+    verified = models.CharField(max_length=100)
+    
     def __unicode__(self):
         return self.user.username
-    
-    
+
+
 #Post table stores details about posts
 
 class Post(models.Model):
@@ -37,10 +64,17 @@ class Post(models.Model):
     title_post = models.CharField(max_length=300)
     #description
     description_post = models.CharField(max_length=2000)
+    #link to important documents
+    link_post = models.CharField(max_length=2000)
     #field to note the timestamp when the post was created
     created = models.DateTimeField(auto_now_add=True)
     #field to note the timestamp when the post was last updated
     updated = models.DateTimeField(auto_now=True)
+    
+    #path to default post image
+    image_post = models.CharField(max_length=300, default="http://allfacebook.com/files/2012/03/bluepin.png")
+    #image of the post
+    imageobj_post = models.ImageField(upload_to=update_filename1)
 
     def __unicode__(self):
         return self.owner.user.username
@@ -56,9 +90,20 @@ class RevPost(models.Model):
     title_post_rev = models.CharField(max_length=300)
     #revised description
     description_post_rev = models.CharField(max_length=2000)
+    #revised link to important documents
+    link_post_rev = models.CharField(max_length=2000)
+    
+    
     #field to note the timestamp when the revised version was created
     created = models.DateTimeField(auto_now_add=True)
+    #change in title
+    title_change = models.BooleanField(default=False)
+    #change in description
+    description_change = models.BooleanField(default=False)
+    #change in link to important documents
+    link_change = models.BooleanField(default=False)
+  
     
 
     def __unicode__(self):
-        return self.owner.user.username    
+        return self.owner_rev.user.username    
