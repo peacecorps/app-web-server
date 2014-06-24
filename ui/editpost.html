@@ -17,13 +17,13 @@ email : ranihaileydesai@gmail.com
         
         <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
         
-        <div style="width:600px; height:400px; margin:0 auto; background-color:#0d8b97;">
+        <div style="width:600px; height:auto; margin:0 auto; padding-bottom:10px; background-color:#0d8b97;">
         <br>
         <center><b><h3><font color="white">Edit Post</font></h3></b></center>
         <br>
             
             
-        <form action="/edit_post/?postid={{post.id}}" method="post">
+        <form action="/edit_post/?postid={{post.id}}" method="post" enctype="multipart/form-data">
         
         <div class="row">
             <div class="col-md-1">
@@ -43,7 +43,6 @@ email : ranihaileydesai@gmail.com
             </div>
             <div class="col-md-6">
                     <textarea name="description" rows="5">{{post.description_post}}</textarea>
-<!--                    <input type="text" name="description">-->
             </div>
         </div>
             
@@ -60,6 +59,25 @@ email : ranihaileydesai@gmail.com
             </div>
         </div>
             
+            
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                    <p><font color="white"><h4>Change image</h4></font></p>
+            </div>
+            <div class="col-md-6">
+                    <input type="file" name="image" size="1000">
+            </div>
+        </div>
+            
+        
+        <div>
+            <center>
+            <img src={{post.image_post}} class="img-responsive" style="width:350px; height:180px; border:2px solid #2c0f00;">
+            </center>                
+        </div>
+            
         <br><center>
             
         <div class="row">
@@ -74,11 +92,12 @@ email : ranihaileydesai@gmail.com
             <div class="col-md-3">
             </div>
         </div>
-        </form>
-            
-            
         
+        </form>
+        <br>    
         </div>
+        
+        
         
         
         <br><br>

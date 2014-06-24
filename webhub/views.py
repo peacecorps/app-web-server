@@ -353,11 +353,15 @@ def post_new(request):
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
     link_post = request.REQUEST['link']
+    image_post = '/static/' + owner.user.username + "post.jpg"
+    imageobj_post = request.FILES['image_post']
     
     entry = Post(owner=owner, 
                  title_post=title_post,
                  description_post=description_post,
                  link_post=link_post,
+                 imageobj_post=imageobj_post,
+                 image_post=image_post,
                  )
     entry.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
@@ -396,6 +400,31 @@ def edit_post(request):
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
     link_post = request.REQUEST['link']
+    
+    
+    #To remove post picture
+    if 'reset_image' in request.REQUEST.keys():
+        postobj.image_post = "http://vfcstatic.r.worldssl.net/assets/car_icon-e0df962a717a5db6ebc8b37e80b05713.png"
+        if str(postobj.imageobj_post) <> '':
+            path = '/vagrant/submit/media/propics/' + owner.user.username  + "post.jpg"
+            if os.path.isfile(path):
+                os.remove(path)
+        postobj.save()
+        return edit_post(request)
+    
+    
+    if 'image' in request.FILES.keys():
+        #delete old file
+        if str(postobj.imageobj_post) <> '':
+            path = '/vagrant/submit/media/propics/' + owner.user.username  + "post.jpg"
+            if os.path.isfile(path):
+                os.remove(path)
+        postobj.imageobj_post = request.FILES['image']
+        postobj.image_post = '/static/' + owner.user.username  + "post.jpg"
+    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+    
+    
     
     if postobj.title_post <> title_post:
         if postobj.description_post <> description_post:

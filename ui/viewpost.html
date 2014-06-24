@@ -16,7 +16,7 @@ email : ranihaileydesai@gmail.com
         <br><br><br><br><br><br>
                
         <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
-        <div style="width:600px; height:350px; margin:0 auto; background-color:#0d8b97;">
+        <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97;">
         <br>
          
         <center><b><h3><font color="white">View Post</font></h3></b></center>
@@ -54,9 +54,16 @@ email : ranihaileydesai@gmail.com
             </div>
         </div><br>
         <center>
+        <img src={{post.image_post}} class="img-responsive" style="width:350px; height:180px; border:2px solid #2c0f00;">
+        </center>          
+           
+        <br>    
+        <center>
         <button class="btn" type="button" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
         <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button>
         </center>    
+            
+        
             
         <br>
         </div>

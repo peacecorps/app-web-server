@@ -19,6 +19,11 @@ def update_filename(instance, filename):
     format = instance.user.username + ".jpg"
     return os.path.join(path, format)
 
+#To update the filename of the newly uploaded photo of the post
+def update_filename1(instance, filename):
+    path = '/vagrant/submit/media/propics/'
+    format =  instance.owner.user.username + "post.jpg"
+    return os.path.join(path, format)
 
 #Django provides a table called user that stores basic user information like username, password and email id.
 
@@ -65,6 +70,11 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     #field to note the timestamp when the post was last updated
     updated = models.DateTimeField(auto_now=True)
+    
+    #path to default post image
+    image_post = models.CharField(max_length=300, default="http://i.imgur.com/dnjclWV.png")
+    #image of the post
+    imageobj_post = models.ImageField(upload_to=update_filename1)
 
     def __unicode__(self):
         return self.owner.user.username
@@ -82,6 +92,8 @@ class RevPost(models.Model):
     description_post_rev = models.CharField(max_length=2000)
     #revised link to important documents
     link_post_rev = models.CharField(max_length=2000)
+    
+    
     #field to note the timestamp when the revised version was created
     created = models.DateTimeField(auto_now_add=True)
     #change in title
@@ -89,7 +101,8 @@ class RevPost(models.Model):
     #change in description
     description_change = models.BooleanField(default=False)
     #change in link to important documents
-    link_change = models.CharField(max_length=2000)
+    link_change = models.BooleanField(default=False)
+  
     
 
     def __unicode__(self):
