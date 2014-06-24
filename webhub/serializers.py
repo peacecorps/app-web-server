@@ -17,4 +17,14 @@ class PcuserSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ('owner', 'title_post', 'description_post', 'created','updated','id')
+        fields = ('owner', 'title_post', 'description_post', 'link_post', 'created','updated','id','image_post','imageobj_post')
+        
+        
+class RevPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RevPost
+        fields = ('owner_rev_post', 'owner_rev', 'title_post_rev', 'description_post_rev', 'link_post_rev', 'created','id','title_change','description_change','link_change')
+        
+
+    
+  

@@ -124,6 +124,48 @@ def post_detail(request, pk):
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
         
+        
+
+#List all revision of a posts
+@api_view(['GET', 'POST'])
+def revpost_list(request):
+     if request.method == 'GET':
+        revpost = RevPost.objects.all()
+        serializer = RevPostSerializer(revpost, many=True)
+        return Response(serializer.data)
+
+     elif request.method == 'POST':
+        serializer = RevPostSerializer(data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Retrieve, update or delete a revpost instance.
+@api_view(['GET', 'PUT', 'DELETE'])
+def revpost_detail(request, pk):
+    try:
+        revpost = RevPost.objects.get(pk=pk)
+    except Pcuser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = RevPostSerializer(post)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = RevPostSerializer(post, data=request.DATA)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        revpost.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
+        
+
 
     
 #Calls index page
