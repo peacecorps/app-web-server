@@ -43,6 +43,8 @@ email : ranihaileydesai@gmail.com
                     <p><font color="white"><h4>{{post.description_post}}</h4></font></p>
             </div>
         </div><br>
+            
+        {% if post.link_post %}
         <div class="row">
             <div class="col-md-1">
             </div>
@@ -53,6 +55,8 @@ email : ranihaileydesai@gmail.com
                     <a href="http://{{post.link_post}}" target="_blank"><p><font color="white"><h4>{{post.link_post}}</h4></font></p></a>
             </div>
         </div><br>
+        {% endif %}
+            
         <center>
         <img src={{post.image_post}} class="img-responsive" style="width:350px; height:180px; border:2px solid #2c0f00;">
         </center>          

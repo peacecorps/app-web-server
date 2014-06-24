@@ -72,7 +72,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     #path to default post image
-    image_post = models.CharField(max_length=300, default="http://i.imgur.com/dnjclWV.png")
+    image_post = models.CharField(max_length=300, default="http://allfacebook.com/files/2012/03/bluepin.png")
     #image of the post
     imageobj_post = models.ImageField(upload_to=update_filename1)
 
