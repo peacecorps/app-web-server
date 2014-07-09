@@ -173,28 +173,28 @@ class Objective(models.Model):
     #Statement of the objective
     obj_stmt = models.CharField(max_length=3000)
     #The goal with which the objective is associated
-    obj_goal = models.ForeignKey(Region, null=False, related_name='obj_goal')
+    obj_goal = models.ForeignKey(Goal, null=False, related_name='obj_goal')
     
     def __unicode__(self):
         return self.obj_name    
     
 class Indicator(models.Model):
     #The objective with which the indicator is associated
-    ind_obj = models.ForeignKey(Region, null=False, related_name='ind_obj')
+    ind_obj = models.ForeignKey(Objective, null=False, related_name='ind_obj')
     #Indicator description
     #Indicator type (SI/PDI/SO/PD)
     #0 - SI
     #1 - PDI
     #2 - SO
     #3 - PD
-    ind_type_1 = models.CharField(max_length="20", default="None", null=False)
+    ind_type_1 = models.CharField(max_length="100", default="None", null=False)
     #Indicator type (Outcome/Output)
     #true - Outcome
     #false - Output
     ind_type_2 = models.BooleanField(default=True)
     
     def __unicode__(self):
-        return self.id    
+        return self.ind_type_1
 
     
     
@@ -209,9 +209,9 @@ class Output(models.Model):
     output_value = models.IntegerField()
     
     def __unicode__(self):
-        return self.option_value    
+        return unicode(self.output_value)
 
-    
+#ahithi baki    
 class Outcome(models.Model):
     #The sector with which the outcome is associated
     outcome_sector = models.ForeignKey(Sector, null=False, related_name='outcome_sector')
@@ -223,7 +223,7 @@ class Outcome(models.Model):
     outcome_value = models.IntegerField()
     
     def __unicode__(self):
-        return self.outcome_value
+        return unicode(self.outcome_value)
     
 class Activity(models.Model):
     #title of the activity

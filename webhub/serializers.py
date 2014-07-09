@@ -25,6 +25,71 @@ class RevPostSerializer(serializers.ModelSerializer):
         model = RevPost
         fields = ('owner_rev_post', 'owner_rev', 'title_post_rev', 'description_post_rev', 'link_post_rev', 'created','id','title_change','description_change','link_change')
         
+#Peacetrack begins here
 
+class RegionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Region
+        fields = ('region_name')
+        
+        
+class SectorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sector
+        fields = ('sector_name','sector_desc','sector_code')
+
+class PTPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PTPost
+        fields = ('post_name','post_region','sector')
+        
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ('project_name','project_purpose','project_sector')
+        
+class GoalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Goal
+        fields = ('goal_name','goal_title','goal_stmt','goal_project')
+        
+class ObjectiveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Objective
+        fields = ('obj_name','obj_title','obj_stmt','obj_goal')
+        
+class IndicatorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Indicator
+        fields = ('ind_obj','ind_type_1','ind_type_2')
+        
+class OutputSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Output
+        fields = ('output_sector','output_ptpost','output_ind','output_value')
+        
+
+class OutcomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Outcome
+        fields = ('outcome_sector','outcome_ptpost','outcome_ind','outcome_value')
+        
+class ActivitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Activity
+        fields = ('activity_title','activity_desc','activity_cohurt','activity_created','activity_output')
     
-  
+class MeasurementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Measurement
+        fields = ('meas_title','meas_desc','meas_cohurt','meas_created','meas_outcome')
+
+class CohurtSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cohurt
+        fields = ('cohurt_name','cohurt_desc','cohurt_no_of_members','cohurt_age','cohurt_males','cohurt_females','cohurt_pos','cohurt_notes')
+        
+class VolunteerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Volunteer
+        fields = ('vol_name','vol_sector','vol_ptpost','vol_activity','vol_meas','vol_cohurt')
