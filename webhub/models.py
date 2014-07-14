@@ -211,7 +211,7 @@ class Output(models.Model):
     def __unicode__(self):
         return unicode(self.output_value)
 
-#ahithi baki    
+    
 class Outcome(models.Model):
     #The sector with which the outcome is associated
     outcome_sector = models.ForeignKey(Sector, null=False, related_name='outcome_sector')
@@ -225,13 +225,35 @@ class Outcome(models.Model):
     def __unicode__(self):
         return unicode(self.outcome_value)
     
+    
+class Cohurt(models.Model):
+    #name
+    cohurt_name = models.CharField(max_length=300)
+    #short description
+    cohurt_desc = models.CharField(max_length=3000)
+    #no of members
+    cohurt_no_of_members = models.IntegerField()
+    #age range
+    cohurt_age = models.CharField(max_length=30)
+    #no of males
+    cohurt_males = models.IntegerField()
+    #no of females
+    cohurt_females = models.IntegerField()
+    #position within the community
+    cohurt_pos = models.CharField(max_length=30)
+    #other relevant notes
+    cohurt_notes = models.CharField(max_length=3000)
+    
+    def __unicode__(self):
+        return unicode(self.cohurt_name)
+    
 class Activity(models.Model):
     #title of the activity
     activity_title = models.CharField(max_length=300)
     #short description
     activity_desc = models.CharField(max_length=3000)
     #relevant cohurt name
-    activity_cohurt = models.ForeignKey(Output, null=False, related_name='activity_cohurt')
+    activity_cohurt = models.ForeignKey(Cohurt, null=False, related_name='activity_cohurt')
     #date & time of the activity creation
     activity_created = models.DateTimeField(auto_now_add=True)
     #output with which the activity is associated
@@ -255,26 +277,7 @@ class Measurement(models.Model):
     def __unicode__(self):
         return self.meas_title
     
-class Cohurt(models.Model):
-    #name
-    cohurt_name = models.CharField(max_length=300)
-    #short description
-    cohurt_desc = models.CharField(max_length=3000)
-    #no of members
-    cohurt_no_of_members = models.IntegerField()
-    #age range
-    cohurt_age = models.CharField(max_length=30)
-    #no of males
-    cohurt_males = models.IntegerField()
-    #no of females
-    cohurt_females = models.IntegerField()
-    #position within the community
-    cohurt_pos = models.CharField(max_length=30)
-    #other relevant notes
-    cohurt_notes = models.CharField(max_length=3000)
-    
-    def __unicode__(self):
-        return self.id
+
     
 class Volunteer(models.Model):
     #username

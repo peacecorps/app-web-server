@@ -10,6 +10,23 @@ from webhub import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
+router.register(r'posts', views.PostViewSet)
+router.register(r'revposts', views.RevPostViewSet)
+router.register(r'regions', views.RegionViewSet)
+router.register(r'sectors', views.SectorViewSet)
+router.register(r'ptposts', views.PTPostViewSet)
+router.register(r'projects', views.ProjectViewSet)
+router.register(r'goals', views.GoalViewSet)
+router.register(r'objectives', views.ObjectiveViewSet)
+router.register(r'indicators', views.IndicatorViewSet)
+router.register(r'outputs', views.OutputViewSet)
+router.register(r'outcomes', views.OutcomeViewSet)
+router.register(r'activity', views.ActivityViewSet)
+router.register(r'measurement', views.MeasurementViewSet)
+router.register(r'cohurt', views.CohurtViewSet)
+router.register(r'volunteer', views.VolunteerViewSet)
+
+
 
 
 
