@@ -1436,6 +1436,14 @@ def change_pass_page(request):
 def peacetrack(request):
     return HttpResponse(jinja_environ.get_template('peacetrack.html').render({"pcuser":None}))  
 
+
+
+#Called when a user wants to see the details of a volunteer.
+def volunteer(request):
+    all_vol = Volunteer.objects.all()
+    return HttpResponse(jinja_environ.get_template('volunteer.html').render({"all_vol":all_posts, "pcuser":request.user.pcuser}))
+
+
 #called when user wishes to go to the Peacetrack from dashboard
 def aboutPC(request):
     return HttpResponse(jinja_environ.get_template('aboutPC.html').render({"pcuser":None}))  

@@ -68,6 +68,8 @@ urlpatterns = patterns('',
     url(r'^policies/$', views.policies, name='policies'),
     url(r'^details/$', views.details, name='details'),
     url(r'^helpPC/$', views.helpPC, name='helpPC'),
+    url(r'^volunteer/$', views.volunteer, name='volunteer'),
+
 )
 
 

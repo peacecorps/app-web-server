@@ -282,8 +282,8 @@ class Measurement(models.Model):
 class Volunteer(models.Model):
     #username
     vol_name = models.CharField(max_length=300)
-    #password
-    
+    #email
+    vol_email = models.CharField(max_length=300)
     #sector
     vol_sector = models.ForeignKey(Sector, null=False, related_name='vol_sector')
     #country
