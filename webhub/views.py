@@ -1441,7 +1441,15 @@ def peacetrack(request):
 #Called when a user wants to see the details of a volunteer.
 def volunteer(request):
     all_vol = Volunteer.objects.all()
-    return HttpResponse(jinja_environ.get_template('volunteer.html').render({"all_vol":all_posts, "pcuser":request.user.pcuser}))
+    return HttpResponse(jinja_environ.get_template('volunteer.html').render({"all_vol":all_vol, "pcuser":request.user.pcuser}))
+
+#Called when a user wants to see the summary of peacetrack volunteer db
+def summary(request):
+    all_post = PTPost.objects.all()
+    all_sector = Sector.objects.all()
+    all_project = Project.objects.all()
+    all_vol = Volunteer.objects.all()
+    return HttpResponse(jinja_environ.get_template('summary.html').render({"all_vol":all_vol,"all_post":all_post,"all_sector":all_sector, "all_project":all_project,"pcuser":request.user.pcuser}))
 
 
 #called when user wishes to go to the Peacetrack from dashboard

@@ -25,27 +25,17 @@ email : ranihaileydesai@gmail.com
         <center><font color="white"><h4>There are No Volunteers right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
     {% else %}
         
-    <table class="table">
-        <thead>
-            <tr>
-                <th><font color="white"><h3>Post</h3></font></th>
-                <th><font color="white"><h3>Action</h3></font></th>
-            </tr>
-        </thead>
-        
-        <tbody>
-<!--            ahithi baki-->
-            {% for vol in all_vol %}
-            <tr>
-            <td><a href="/view_post/?key={{post.id}}"><font color="white">{{vol.}}</font></a></td>
-            <td><button class="btn" type="button" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button></td></tr>
-            {% endfor %}
-    
-    
-        </tbody>
-        
-    </table>
+        {% for vol in all_vol %}
+        <font color="white">
+        Name of volunteer : {{vol.vol_name}}<br>
+        Sector : {{vol.vol_sector}}<br>
+        Post : {{vol.vol_ptpost}}<br>
+        Activity : {{vol.vol_activity}}<br>
+        Measurement : {{vol.vol_meas}}<br>
+        Cohurt : {{vol.vol_cohurt}}<br></font>
+        <br>
+        {% endfor %}
+
     {% endif %}
     
     

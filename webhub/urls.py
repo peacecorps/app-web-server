@@ -69,7 +69,7 @@ urlpatterns = patterns('',
     url(r'^details/$', views.details, name='details'),
     url(r'^helpPC/$', views.helpPC, name='helpPC'),
     url(r'^volunteer/$', views.volunteer, name='volunteer'),
-
+    url(r'^summary/$', views.summary, name='summary'),
 )
 
 
