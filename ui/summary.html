@@ -1,0 +1,102 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+<!-- the summary page -->
+
+
+<html>
+<head>
+	<title>PeaceTrack | Summary</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <br><br><br><br><br><br>
+    <center><h2><font color="#2c0f00"> PeaceTrack : Summary</font> </h2></center>
+    <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97; padding-right:15px; padding-left:15px;">
+    <br><br>
+    <font color="white">
+    
+    Details by Post <br><br>
+    
+    {%if all_post|length ==0 %}
+        <center><font color="white"><h4>There are No Posts right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
+    {% else %}
+        
+        {% for post in all_post %}
+        <font color="white">
+        Name of the post : {{post.post_name}} <br>
+        Region : {{post.post_region}} <br>
+        Sector : {{post.sector}}<br>
+        {% endfor %}
+
+    {% endif %}
+    <br>
+    Details by Sector <br><br>
+    
+    {%if all_sector|length ==0 %}
+        <center><font color="white"><h4>There are No Sectors right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
+    {% else %}
+        
+        {% for sect in all_sector %}
+        <font color="white">
+            
+            Name of the sector : {{sect.sector_name}} <br>
+            Description of the sector : {{sect.sector_desc}} <br>
+            Code : {{sect.sector_code}} <br>
+        
+        
+        {% endfor %}
+
+    {% endif %}
+        
+    <br>
+    Details by Project <br><br>
+    
+    {%if all_project|length ==0 %}
+        <center><font color="white"><h4>There are No Projects right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
+    {% else %}
+        
+        {% for proj in all_project %}
+        <font color="white">
+            Name of the project : {{proj.project_name}} <br>
+            Purpose : {{proj.project_purpose}} <br>
+            Sector : {{proj.project_sector}} <br>
+            
+        
+        
+        {% endfor %}
+
+    {% endif %}
+        
+    <br>    
+    Details by Volunteer <br><br>
+    {%if all_vol|length ==0 %}
+        <center><font color="white"><h4>There are No Volunteers right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
+    {% else %}
+        
+        {% for vol in all_vol %}
+        <font color="white">
+        Name of volunteer : {{vol.vol_name}}<br>
+        Sector : {{vol.vol_sector}}<br>
+        Post : {{vol.vol_ptpost}}<br>
+        Activity : {{vol.vol_activity}}<br>
+        Measurement : {{vol.vol_meas}}<br>
+        Cohurt : {{vol.vol_cohurt}}<br></font>
+        <br>
+        {% endfor %}
+
+    {% endif %}
+    <br>    
+        
+    </font>
+    </div>
+    <br><br>
+    {% include "footer.html" %}
+
+    
+</body>
+</html>
