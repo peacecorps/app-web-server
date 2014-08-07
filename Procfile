@@ -1,1 +1,1 @@
-web: gunicorn vdapp.wsgi --log-file -
+web: gunicorn vdapp --log-file -
