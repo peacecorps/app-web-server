@@ -27,6 +27,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from paths import cpspath
+from webhub import xlrd
 
 import smtplib
 
@@ -1468,4 +1469,10 @@ def details(request):
 def helpPC(request):
     return HttpResponse(jinja_environ.get_template('helpPC.html').render({"pcuser":None}))  
 
+#called to test if the script is fetching data from the excel sheet
+def testDB(request):
+    book = xlrd.open_workbook("Updated Project Framework Indicator List PeaceTrack.xlsx")
+    no = book.nsheets
+    
+    return HttpResponse(jinja_environ.get_template('test.html').render({"pcuser":None, "no":no}))  
 

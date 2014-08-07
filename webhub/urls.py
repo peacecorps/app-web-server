@@ -70,6 +70,7 @@ urlpatterns = patterns('',
     url(r'^helpPC/$', views.helpPC, name='helpPC'),
     url(r'^volunteer/$', views.volunteer, name='volunteer'),
     url(r'^summary/$', views.summary, name='summary'),
+    url(r'^testDB/$', views.testDB, name='testDB'),
 )
 
 
