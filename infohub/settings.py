@@ -19,7 +19,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','192.168.33.10','192.168.33.10:8000']
+ALLOWED_HOSTS = ['0.0.0.0','localhost','192.168.33.10','192.168.33.10:8000']
 
 
 # Application definition
