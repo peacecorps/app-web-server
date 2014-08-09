@@ -108,3 +108,11 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
+
+
+#settings for smtp 
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'ranipc93@gmail.com' 
+EMAIL_HOST_PASSWORD = 'ranipc1993' 
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
