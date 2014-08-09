@@ -35,7 +35,7 @@ import smtplib
 SMTP_PORT = 465
 
 #link for the localhost
-website = "http://192.168.33.10:8000"
+website = "http://systerspcweb.herokuapp.com/"
 
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']), extensions=[loopcontrols])
 
