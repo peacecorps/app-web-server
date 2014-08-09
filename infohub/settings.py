@@ -111,8 +111,10 @@ ALLOWED_HOSTS = ['*']
 
 
 #settings for smtp 
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'ranipc93@gmail.com'
+SERVER_EMAIL = 'ranipc93@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_HOST_USER = 'ranipc93@gmail.com' 
 EMAIL_HOST_PASSWORD = 'ranipc1993' 
 EMAIL_PORT = 465
-EMAIL_USE_TLS = True
