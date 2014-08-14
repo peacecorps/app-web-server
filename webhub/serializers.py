@@ -82,14 +82,14 @@ class ActivitySerializer(serializers.ModelSerializer):
 class MeasurementSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measurement
-        fields = ('meas_title','meas_desc','meas_cohurt','meas_created','meas_outcome','id')
+        fields = ('meas_title','meas_desc','meas_cohort','meas_created','meas_outcome','id')
 
-class CohurtSerializer(serializers.ModelSerializer):
+class CohortSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Cohurt
-        fields = ('cohurt_name','cohurt_desc','cohurt_no_of_members','cohurt_age','cohurt_males','cohurt_females','cohurt_pos','cohurt_notes','id')
+        model = Cohort
+        fields = ('cohort_name','cohort_desc','cohort_no_of_members','cohort_age','cohort_males','cohort_females','cohort_pos','cohort_notes','id')
         
 class VolunteerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Volunteer
-        fields = ('vol_name','vol_sector','vol_ptpost','vol_activity','vol_meas','vol_cohurt','id')
+        fields = ('vol_name','vol_sector','vol_ptpost','vol_activity','vol_meas','vol_cohort','id')
