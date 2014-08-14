@@ -77,7 +77,7 @@ class OutcomeSerializer(serializers.ModelSerializer):
 class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
-        fields = ('activity_title','activity_desc','activity_cohurt','activity_created','activity_output','id')
+        fields = ('activity_title','activity_desc','activity_cohort','activity_created','activity_output','id')
     
 class MeasurementSerializer(serializers.ModelSerializer):
     class Meta:

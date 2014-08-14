@@ -704,50 +704,50 @@ def measurement_detail(request, pk):
     
     
     
-#for cohurts
-class CohurtViewSet(viewsets.ModelViewSet):
+#for cohorts
+class CohortViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Cohurt.objects.all()
-    serializer_class = CohurtSerializer        
+    queryset = Cohort.objects.all()
+    serializer_class = CohortSerializer        
 
-#List all cohurt
+#List all cohort
 @api_view(['GET', 'POST'])
-def cohurt_list(request):
+def cohort_list(request):
      if request.method == 'GET':
-        cohurt = Cohurt.objects.all()
-        serializer = CohurtSerializer(cohurt, many=True)
+        cohort = Cohort.objects.all()
+        serializer = CohortSerializer(cohort, many=True)
         return Response(serializer.data)
 
      elif request.method == 'POST':
-        serializer = CohurtSerializer(data=request.DATA)
+        serializer = CohortSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#Retrieve, update or delete a cohurt instance.
+#Retrieve, update or delete a cohort instance.
 @api_view(['GET', 'PUT', 'DELETE'])
-def cohurt_detail(request, pk):
+def cohort_detail(request, pk):
     try:
-        cohurt = Cohurt.objects.get(pk=pk)
+        cohort = Cohort.objects.get(pk=pk)
     except Pcuser.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = CohurtSerializer(cohurt)
+        serializer = CohortSerializer(cohort)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = CohurtSerializer(cohurt, data=request.DATA)
+        serializer = CohortSerializer(cohort, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        cohurt.delete()
+        cohort.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     
