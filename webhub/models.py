@@ -226,34 +226,34 @@ class Outcome(models.Model):
         return unicode(self.outcome_value)
     
     
-class Cohurt(models.Model):
+class Cohort(models.Model):
     #name
-    cohurt_name = models.CharField(max_length=300)
+    cohort_name = models.CharField(max_length=300)
     #short description
-    cohurt_desc = models.CharField(max_length=3000)
+    cohort_desc = models.CharField(max_length=3000)
     #no of members
-    cohurt_no_of_members = models.IntegerField()
+    cohort_no_of_members = models.IntegerField()
     #age range
-    cohurt_age = models.CharField(max_length=30)
+    cohort_age = models.CharField(max_length=30)
     #no of males
-    cohurt_males = models.IntegerField()
+    cohort_males = models.IntegerField()
     #no of females
-    cohurt_females = models.IntegerField()
+    cohort_females = models.IntegerField()
     #position within the community
-    cohurt_pos = models.CharField(max_length=30)
+    cohort_pos = models.CharField(max_length=30)
     #other relevant notes
-    cohurt_notes = models.CharField(max_length=3000)
+    cohort_notes = models.CharField(max_length=3000)
     
     def __unicode__(self):
-        return unicode(self.cohurt_name)
+        return unicode(self.cohort_name)
     
 class Activity(models.Model):
     #title of the activity
     activity_title = models.CharField(max_length=300)
     #short description
     activity_desc = models.CharField(max_length=3000)
-    #relevant cohurt name
-    activity_cohurt = models.ForeignKey(Cohurt, null=False, related_name='activity_cohurt')
+    #relevant cohort name
+    activity_cohort = models.ForeignKey(Cohort, null=False, related_name='activity_cohort')
     #date & time of the activity creation
     activity_created = models.DateTimeField(auto_now_add=True)
     #output with which the activity is associated
@@ -267,8 +267,8 @@ class Measurement(models.Model):
     meas_title = models.CharField(max_length=300)
     #short description of the Measurement
     meas_desc = models.CharField(max_length=3000)
-    #relevant cohurt name
-    meas_cohurt = models.ForeignKey(Output, null=False, related_name='meas_cohurt')
+    #relevant cohort name
+    meas_cohort = models.ForeignKey(Output, null=False, related_name='meas_cohort')
     #date & time of the Measurement creation
     meas_created = models.DateTimeField(auto_now_add=True)
     #outcome with which the Measurement is associated
@@ -292,8 +292,8 @@ class Volunteer(models.Model):
     vol_activity = models.ManyToManyField(Activity)
     #measurement
     vol_meas = models.ManyToManyField(Measurement)
-    #cohurt
-    vol_cohurt = models.ManyToManyField(Cohurt)
+    #cohort
+    vol_cohort = models.ManyToManyField(Cohort)
     
     def __unicode__(self):
         return self.vol_name
