@@ -19,11 +19,7 @@ def update_filename(instance, filename):
     format = instance.user.username + ".jpg"
     return os.path.join(path, format)
 
-#To update the filename of the newly uploaded photo of the post
-def update_filename1(instance, filename):
-    path = '/vagrant/submit/media/propics/'
-    format =  instance.owner.user.username + "post.jpg"
-    return os.path.join(path, format)
+
 
 #Django provides a table called user that stores basic user information like username, password and email id.
 

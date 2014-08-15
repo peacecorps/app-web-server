@@ -1038,16 +1038,11 @@ def post_new(request):
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
     link_post = request.REQUEST['link']
-    imageobj_post = request.FILES['image_post']
-    image_post = '/static/' + owner.user.username  + "post.jpg"
-    
-    
+   
     entry = Post(owner=owner, 
                  title_post=title_post,
                  description_post=description_post,
-                 link_post=link_post,
-                 imageobj_post=imageobj_post,
-                 image_post=image_post,
+                
                  )
     entry.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
@@ -1085,28 +1080,9 @@ def edit_post(request):
     
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
-    link_post = request.REQUEST['link']
     
     
-    #To remove post picture
-    if 'reset_image' in request.REQUEST.keys():
-        postobj.image_post = "http://allfacebook.com/files/2012/03/bluepin.png"
-        if str(postobj.imageobj_post) <> '':
-            path = '/vagrant/submit/media/propics/' + owner.user.username  + "post.jpg"
-            if os.path.isfile(path):
-                os.remove(path)
-        postobj.save()
-        return edit_post(request)
     
-    
-    if 'image' in request.FILES.keys():
-        #delete old file
-        if str(postobj.imageobj_post) <> '':
-            path = '/vagrant/submit/media/propics/' + owner.user.username  + "post.jpg"
-            if os.path.isfile(path):
-                os.remove(path)
-        postobj.imageobj_post = request.FILES['image']
-        postobj.image_post = '/static/' + owner.user.username  + "post.jpg"
     
     if postobj.title_post <> title_post:
         if postobj.description_post <> description_post:
