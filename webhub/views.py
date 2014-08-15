@@ -1297,8 +1297,8 @@ def edit_profile(request):
     
     request.user.pcuser.gender = request.REQUEST['gender']
     request.user.pcuser.phone = request.REQUEST['phone']
-    request.user.pcuser.phone = request.REQUEST['email']
-    request.user.pcuser.gender = request.REQUEST['location']
+    request.user.pcuser.email = request.REQUEST['email']
+    request.user.pcuser.location = request.REQUEST['location']
     request.user.first_name = request.REQUEST['first_name']
     request.user.last_name = request.REQUEST['last_name']
     
