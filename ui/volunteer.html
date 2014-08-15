@@ -30,17 +30,22 @@ email : ranihaileydesai@gmail.com
         Name of volunteer : {{vol.vol_name}}<br>
         Sector : {{vol.vol_sector}}<br>
         Post : {{vol.vol_ptpost}}<br>
-        Activity 1: 
-          
+        Activity : 
         {% for item in vol.vol_activity.all() %}
             {{ item }}
         {% endfor %}
-          <br>
-            
-        Activity : {{vol.vol_activity}}<br>
-        Measurement : {{vol.vol_meas}}<br>
-        Cohort : {{vol.vol_cohort}}<br></font>
         <br>
+        Measurement : 
+        {% for item in vol.vol_meas.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>
+        Cohort : 
+        {% for item in vol.vol_cohort.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>    
+        
         {% endfor %}
 
     {% endif %}
