@@ -1037,7 +1037,7 @@ def post_new(request):
     owner = request.user.pcuser
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
-    link_post = request.REQUEST['link']
+    
    
     entry = Post(owner=owner, 
                  title_post=title_post,
