@@ -1086,109 +1086,61 @@ def edit_post(request):
     
     if postobj.title_post <> title_post:
         if postobj.description_post <> description_post:
-            if postobj.link_post <> link_post:
+            
                 entry = RevPost(owner_rev=owner, 
                     owner_rev_post=postobj, 
                     title_post_rev=postobj.title_post,
                     description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
+        
                     title_change=True,
                     description_change=True,
-                    link_change=True,
+        
                     )
                 entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=True,
-                    description_change=True,
-                    link_change=False,
-                    )
-                entry.save()
+            
         else:
-            if postobj.link_post <> link_post:
+            
                 entry = RevPost(owner_rev=owner, 
                     owner_rev_post=postobj, 
                     title_post_rev=postobj.title_post,
                     description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
+        
                     title_change=True,
                     description_change=False,
-                    link_change=True,
+        
                     )
                 entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=True,
-                    description_change=False,
-                    link_change=False,
-                    )
-                entry.save()
-            
-            
+                    
     else:        
         if postobj.description_post <> description_post:
-            if postobj.link_post <> link_post:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=True,
-                    link_change=True,
-                    )
-                entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=True,
-                    link_change=False,
-                    )
-                entry.save()
             
-            
-        else:
-            if postobj.link_post <> link_post:
                 entry = RevPost(owner_rev=owner, 
                     owner_rev_post=postobj, 
                     title_post_rev=postobj.title_post,
                     description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=False,
-                    link_change=True,
-                    )
-                entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=False,
-                    link_change=False,
-                    )
-                entry.save()
-                
         
-    
-    
+                    title_change=False,
+                    description_change=True,
+        
+                    )
+                entry.save()
+                        
+        else:
+            
+                entry = RevPost(owner_rev=owner, 
+                    owner_rev_post=postobj, 
+                    title_post_rev=postobj.title_post,
+                    description_post_rev=postobj.description_post,
+        
+                    title_change=False,
+                    description_change=False,
+        
+                    )
+                entry.save()
+            
     postobj.title_post = title_post
     postobj.description_post = description_post
-    postobj.link_post = link_post
+    
     
     postobj.save()
     
