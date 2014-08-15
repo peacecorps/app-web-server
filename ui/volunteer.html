@@ -31,10 +31,8 @@ email : ranihaileydesai@gmail.com
         Sector : {{vol.vol_sector}}<br>
         Post : {{vol.vol_ptpost}}<br>
         Activity 1: 
-            {% for act in vol.vol_activity %}
-                {{ act}}
-            {% endfor %}
-            
+            vol.vol_activity.all()
+          
             
         Activity : {{vol.vol_activity}}<br>
         Measurement : {{vol.vol_meas}}<br>
