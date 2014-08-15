@@ -71,11 +71,7 @@ class Post(models.Model):
     #field to note the timestamp when the post was last updated
     updated = models.DateTimeField(auto_now=True)
     
-    #path to default post image
-    image_post = models.CharField(max_length=300, default="http://allfacebook.com/files/2012/03/bluepin.png")
-    #image of the post
-    imageobj_post = models.ImageField(upload_to=update_filename1)
-
+    
     def __unicode__(self):
         return self.owner.user.username
     
@@ -90,8 +86,7 @@ class RevPost(models.Model):
     title_post_rev = models.CharField(max_length=300)
     #revised description
     description_post_rev = models.CharField(max_length=2000)
-    #revised link to important documents
-    link_post_rev = models.CharField(max_length=2000)
+    
     
     
     #field to note the timestamp when the revised version was created
@@ -100,8 +95,7 @@ class RevPost(models.Model):
     title_change = models.BooleanField(default=False)
     #change in description
     description_change = models.BooleanField(default=False)
-    #change in link to important documents
-    link_change = models.BooleanField(default=False)
+    
   
     
 
