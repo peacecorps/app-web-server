@@ -30,7 +30,11 @@ email : ranihaileydesai@gmail.com
         <font color="white">
         Name of the post : {{post.post_name}} <br>
         Region : {{post.post_region}} <br>
-        Sector : {{post.sector}}<br>
+        Sector : 
+        {% for item in post.sector.all() %}
+            {{ item }}
+        {% endfor %}    
+        <br>
         {% endfor %}
 
     {% endif %}

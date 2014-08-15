@@ -27,7 +27,7 @@ email : ranihaileydesai@gmail.com
         
         {% for vol in all_vol %}
         <font color="white">
-        Name of volunteer : {{vol.vol_name}}<br>
+        <b>Name of volunteer : </b>{{vol.vol_name}}<br>
         Sector : {{vol.vol_sector}}<br>
         Post : {{vol.vol_ptpost}}<br>
         Activity : 
@@ -45,7 +45,7 @@ email : ranihaileydesai@gmail.com
             {{ item }}
         {% endfor %}
         <br>    
-        
+        <br>
         {% endfor %}
 
     {% endif %}
