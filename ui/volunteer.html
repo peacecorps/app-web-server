@@ -30,6 +30,12 @@ email : ranihaileydesai@gmail.com
         Name of volunteer : {{vol.vol_name}}<br>
         Sector : {{vol.vol_sector}}<br>
         Post : {{vol.vol_ptpost}}<br>
+        Activity 1: 
+            {% for activity in vol.vol_activity %}
+                {{ activity}}
+            {% endfor %}
+            
+            
         Activity : {{vol.vol_activity}}<br>
         Measurement : {{vol.vol_meas}}<br>
         Cohort : {{vol.vol_cohort}}<br></font>
