@@ -20,7 +20,7 @@ email : ranihaileydesai@gmail.com
     <br><br>
     <font color="white">
     
-    Details by Post <br><br>
+    <b>Details by Post <br><br></b>
     
     {%if all_post|length ==0 %}
         <center><font color="white"><h4>There are No Posts right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
@@ -39,7 +39,7 @@ email : ranihaileydesai@gmail.com
 
     {% endif %}
     <br>
-    Details by Sector <br><br>
+    <b>Details by Sector <br><br></b>
     
     {%if all_sector|length ==0 %}
         <center><font color="white"><h4>There are No Sectors right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
@@ -58,7 +58,7 @@ email : ranihaileydesai@gmail.com
     {% endif %}
         
     <br>
-    Details by Project <br><br>
+    <b>Details by Project <br><br></b>
     
     {%if all_project|length ==0 %}
         <center><font color="white"><h4>There are No Projects right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
@@ -77,7 +77,7 @@ email : ranihaileydesai@gmail.com
     {% endif %}
         
     <br>    
-    Details by Volunteer <br><br>
+    <b>Details by Volunteer <br><br></b>
     {%if all_vol|length ==0 %}
         <center><font color="white"><h4>There are No Volunteers right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
     {% else %}
@@ -87,9 +87,22 @@ email : ranihaileydesai@gmail.com
         Name of volunteer : {{vol.vol_name}}<br>
         Sector : {{vol.vol_sector}}<br>
         Post : {{vol.vol_ptpost}}<br>
-        Activity : {{vol.vol_activity}}<br>
-        Measurement : {{vol.vol_meas}}<br>
-        Cohurt : {{vol.vol_cohort}}<br></font>
+        Activity : 
+        {% for item in vol.vol_activity.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>
+        Measurement : 
+        {% for item in vol.vol_meas.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>
+        Cohort : 
+        {% for item in vol.vol_cohort.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>  
+        </font>
         <br>
         {% endfor %}
 
