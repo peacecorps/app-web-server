@@ -27,7 +27,7 @@ email : ranihaileydesai@gmail.com
                     
                     {% if pcuser %}
                     <div class="navbar-right" style="float:right; padding-top:10px; margin-right:-500px;">
-                        <a href="/profile/?id={{pcuser.user.id}}"><h4><font color="#2c0f00" style="border:2px solid; padding:5px;">Welcome, <b>{{pcuser.user.first_name}}</b> !</font></a>
+                        <a href="/profile/?id={{pcuser.user.id}}"><h4><font color="#2c0f00" style="border:2px solid; padding:5px;">{{pcuser.user.id}} Welcome, <b>{{pcuser.user.first_name}}</b> !</font></a>
                         <a href="/logout_do/"><font color="#2c0f00" style="border:2px solid; padding:5px;">LogOut</font></a></h4>
                     </div>
                     {% endif %}
