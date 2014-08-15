@@ -33,9 +33,9 @@ email : ranihaileydesai@gmail.com
         Activity 1: 
           
         {% for item in vol.vol_activity.all() %}
-            item
+            {{ item }}
         {% endfor %}
-          
+          <br>
             
         Activity : {{vol.vol_activity}}<br>
         Measurement : {{vol.vol_meas}}<br>
