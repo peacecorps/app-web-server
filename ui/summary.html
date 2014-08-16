@@ -77,36 +77,6 @@ email : ranihaileydesai@gmail.com
     {% endif %}
         
     <br>    
-    <b>Details by Volunteer <br><br></b>
-    {%if all_vol|length ==0 %}
-        <center><font color="white"><h4>There are No Volunteers right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
-    {% else %}
-        
-        {% for vol in all_vol %}
-        <font color="white">
-        Name of volunteer : {{vol.vol_name}}<br>
-        Sector : {{vol.vol_sector}}<br>
-        Post : {{vol.vol_ptpost}}<br>
-        Activity : 
-        {% for item in vol.vol_activity.all() %}
-            {{ item }}
-        {% endfor %}
-        <br>
-        Measurement : 
-        {% for item in vol.vol_meas.all() %}
-            {{ item }}
-        {% endfor %}
-        <br>
-        Cohort : 
-        {% for item in vol.vol_cohort.all() %}
-            {{ item }}
-        {% endfor %}
-        <br>  
-        </font>
-        <br>
-        {% endfor %}
-
-    {% endif %}
     <br>    
         
     </font>
