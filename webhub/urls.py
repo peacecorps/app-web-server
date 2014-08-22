@@ -23,7 +23,7 @@ router.register(r'outputs', views.OutputViewSet)
 router.register(r'outcomes', views.OutcomeViewSet)
 router.register(r'activity', views.ActivityViewSet)
 router.register(r'measurement', views.MeasurementViewSet)
-router.register(r'cohurt', views.CohurtViewSet)
+router.register(r'cohort', views.CohortViewSet)
 router.register(r'volunteer', views.VolunteerViewSet)
 
 
@@ -70,6 +70,7 @@ urlpatterns = patterns('',
     url(r'^helpPC/$', views.helpPC, name='helpPC'),
     url(r'^volunteer/$', views.volunteer, name='volunteer'),
     url(r'^summary/$', views.summary, name='summary'),
+    url(r'^testDB/$', views.testDB, name='testDB'),
 )
 
 

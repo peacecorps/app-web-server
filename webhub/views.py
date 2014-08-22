@@ -27,6 +27,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from paths import cpspath
+from webhub import xlrd
 
 import smtplib
 
@@ -34,7 +35,7 @@ import smtplib
 SMTP_PORT = 465
 
 #link for the localhost
-website = "http://192.168.33.10:8000"
+website = "http://systerspcweb.herokuapp.com/"
 
 jinja_environ = jinja2.Environment(loader=jinja2.FileSystemLoader(['ui']), extensions=[loopcontrols])
 
@@ -703,50 +704,50 @@ def measurement_detail(request, pk):
     
     
     
-#for cohurts
-class CohurtViewSet(viewsets.ModelViewSet):
+#for cohorts
+class CohortViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Cohurt.objects.all()
-    serializer_class = CohurtSerializer        
+    queryset = Cohort.objects.all()
+    serializer_class = CohortSerializer        
 
-#List all cohurt
+#List all cohort
 @api_view(['GET', 'POST'])
-def cohurt_list(request):
+def cohort_list(request):
      if request.method == 'GET':
-        cohurt = Cohurt.objects.all()
-        serializer = CohurtSerializer(cohurt, many=True)
+        cohort = Cohort.objects.all()
+        serializer = CohortSerializer(cohort, many=True)
         return Response(serializer.data)
 
      elif request.method == 'POST':
-        serializer = CohurtSerializer(data=request.DATA)
+        serializer = CohortSerializer(data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-#Retrieve, update or delete a cohurt instance.
+#Retrieve, update or delete a cohort instance.
 @api_view(['GET', 'PUT', 'DELETE'])
-def cohurt_detail(request, pk):
+def cohort_detail(request, pk):
     try:
-        cohurt = Cohurt.objects.get(pk=pk)
+        cohort = Cohort.objects.get(pk=pk)
     except Pcuser.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
-        serializer = CohurtSerializer(cohurt)
+        serializer = CohortSerializer(cohort)
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = CohurtSerializer(cohurt, data=request.DATA)
+        serializer = CohortSerializer(cohort, data=request.DATA)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        cohurt.delete()
+        cohort.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
     
@@ -1036,17 +1037,12 @@ def post_new(request):
     owner = request.user.pcuser
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
-    link_post = request.REQUEST['link']
-    imageobj_post = request.FILES['image_post']
-    image_post = '/static/' + owner.user.username  + "post.jpg"
     
-    
+   
     entry = Post(owner=owner, 
                  title_post=title_post,
                  description_post=description_post,
-                 link_post=link_post,
-                 imageobj_post=imageobj_post,
-                 image_post=image_post,
+                
                  )
     entry.save()
     return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
@@ -1084,134 +1080,67 @@ def edit_post(request):
     
     title_post = request.REQUEST['title']
     description_post = request.REQUEST['description']
-    link_post = request.REQUEST['link']
     
     
-    #To remove post picture
-    if 'reset_image' in request.REQUEST.keys():
-        postobj.image_post = "http://allfacebook.com/files/2012/03/bluepin.png"
-        if str(postobj.imageobj_post) <> '':
-            path = '/vagrant/submit/media/propics/' + owner.user.username  + "post.jpg"
-            if os.path.isfile(path):
-                os.remove(path)
-        postobj.save()
-        return edit_post(request)
     
-    
-    if 'image' in request.FILES.keys():
-        #delete old file
-        if str(postobj.imageobj_post) <> '':
-            path = '/vagrant/submit/media/propics/' + owner.user.username  + "post.jpg"
-            if os.path.isfile(path):
-                os.remove(path)
-        postobj.imageobj_post = request.FILES['image']
-        postobj.image_post = '/static/' + owner.user.username  + "post.jpg"
     
     if postobj.title_post <> title_post:
         if postobj.description_post <> description_post:
-            if postobj.link_post <> link_post:
+            
                 entry = RevPost(owner_rev=owner, 
                     owner_rev_post=postobj, 
                     title_post_rev=postobj.title_post,
                     description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
+        
                     title_change=True,
                     description_change=True,
-                    link_change=True,
+        
                     )
                 entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=True,
-                    description_change=True,
-                    link_change=False,
-                    )
-                entry.save()
+            
         else:
-            if postobj.link_post <> link_post:
+            
                 entry = RevPost(owner_rev=owner, 
                     owner_rev_post=postobj, 
                     title_post_rev=postobj.title_post,
                     description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
+        
                     title_change=True,
                     description_change=False,
-                    link_change=True,
+        
                     )
                 entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=True,
-                    description_change=False,
-                    link_change=False,
-                    )
-                entry.save()
-            
-            
+                    
     else:        
         if postobj.description_post <> description_post:
-            if postobj.link_post <> link_post:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=True,
-                    link_change=True,
-                    )
-                entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=True,
-                    link_change=False,
-                    )
-                entry.save()
             
-            
-        else:
-            if postobj.link_post <> link_post:
                 entry = RevPost(owner_rev=owner, 
                     owner_rev_post=postobj, 
                     title_post_rev=postobj.title_post,
                     description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=False,
-                    link_change=True,
-                    )
-                entry.save()
-            else:
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-                    link_post_rev=postobj.link_post,
-                    title_change=False,
-                    description_change=False,
-                    link_change=False,
-                    )
-                entry.save()
-                
         
-    
-    
+                    title_change=False,
+                    description_change=True,
+        
+                    )
+                entry.save()
+                        
+        else:
+            
+                entry = RevPost(owner_rev=owner, 
+                    owner_rev_post=postobj, 
+                    title_post_rev=postobj.title_post,
+                    description_post_rev=postobj.description_post,
+        
+                    title_change=False,
+                    description_change=False,
+        
+                    )
+                entry.save()
+            
     postobj.title_post = title_post
     postobj.description_post = description_post
-    postobj.link_post = link_post
+    
     
     postobj.save()
     
@@ -1296,8 +1225,8 @@ def edit_profile(request):
     
     request.user.pcuser.gender = request.REQUEST['gender']
     request.user.pcuser.phone = request.REQUEST['phone']
-    request.user.pcuser.phone = request.REQUEST['email']
-    request.user.pcuser.gender = request.REQUEST['location']
+    request.user.pcuser.email = request.REQUEST['email']
+    request.user.pcuser.location = request.REQUEST['location']
     request.user.first_name = request.REQUEST['first_name']
     request.user.last_name = request.REQUEST['last_name']
     
@@ -1468,4 +1397,10 @@ def details(request):
 def helpPC(request):
     return HttpResponse(jinja_environ.get_template('helpPC.html').render({"pcuser":None}))  
 
+#called to test if the script is fetching data from the excel sheet
+def testDB(request):
+    book = xlrd.open_workbook("Updated Project Framework Indicator List PeaceTrack.xlsx")
+    no = book.nsheets
+    
+    return HttpResponse(jinja_environ.get_template('test.html').render({"pcuser":None, "no":no}))  
 

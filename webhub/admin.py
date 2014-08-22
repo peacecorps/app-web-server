@@ -22,7 +22,7 @@ admin.site.register(Output)
 admin.site.register(Outcome)
 admin.site.register(Activity)
 admin.site.register(Measurement)
-admin.site.register(Cohurt)
+admin.site.register(Cohort)
 admin.site.register(Volunteer)
 
 
