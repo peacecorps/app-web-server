@@ -1,0 +1,7 @@
+*.pyc
+*.swk
+*.swn
+*.swo
+*.swp
+.vagrant*
+submit/
