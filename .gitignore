@@ -1,7 +1,10 @@
+*~
+*.bak
 *.pyc
 *.swk
 *.swn
 *.swo
 *.swp
+*.txt
 .vagrant*
 submit/
