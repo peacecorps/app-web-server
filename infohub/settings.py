@@ -111,9 +111,9 @@ ALLOWED_HOSTS = ['*']
 
 #settings for smtp 
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'ranipc93@gmail.com'
-SERVER_EMAIL = 'ranipc93@gmail.com'
+DEFAULT_FROM_EMAIL = 'pc.mobile.control.center@gmail.com'
+SERVER_EMAIL = 'pc.mobile.control.center@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = 'ranipc93@gmail.com' 
-EMAIL_HOST_PASSWORD = 'ranipc1993' 
+EMAIL_HOST_USER = 'pc.mobile.control.center.com' 
+EMAIL_HOST_PASSWORD = 'alphadeltaepsilon' 
 EMAIL_PORT = 465

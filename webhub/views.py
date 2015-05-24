@@ -921,8 +921,8 @@ def send_verification_email(request):
 
 #Function to send emails using google smtplib. Takes email id and message as input.    
 def send_email(msg, email):
-    gmailLogin = 'ranipc93'
-    gmailPas = 'ranipc1993'
+    gmailLogin = 'pc.mobile.control.center'
+    gmailPas = 'alphadeltaepsilon'
     fro = gmailLogin + "@gmail.com"
     
     to = email
