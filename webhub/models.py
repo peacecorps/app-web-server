@@ -19,11 +19,7 @@ def update_filename(instance, filename):
     format = instance.user.username + ".jpg"
     return os.path.join(path, format)
 
-#To update the filename of the newly uploaded photo of the post
-def update_filename1(instance, filename):
-    path = '/vagrant/submit/media/propics/'
-    format =  instance.owner.user.username + "post.jpg"
-    return os.path.join(path, format)
+
 
 #Django provides a table called user that stores basic user information like username, password and email id.
 
@@ -71,11 +67,7 @@ class Post(models.Model):
     #field to note the timestamp when the post was last updated
     updated = models.DateTimeField(auto_now=True)
     
-    #path to default post image
-    image_post = models.CharField(max_length=300, default="http://allfacebook.com/files/2012/03/bluepin.png")
-    #image of the post
-    imageobj_post = models.ImageField(upload_to=update_filename1)
-
+    
     def __unicode__(self):
         return self.owner.user.username
     
@@ -90,8 +82,7 @@ class RevPost(models.Model):
     title_post_rev = models.CharField(max_length=300)
     #revised description
     description_post_rev = models.CharField(max_length=2000)
-    #revised link to important documents
-    link_post_rev = models.CharField(max_length=2000)
+    
     
     
     #field to note the timestamp when the revised version was created
@@ -100,8 +91,7 @@ class RevPost(models.Model):
     title_change = models.BooleanField(default=False)
     #change in description
     description_change = models.BooleanField(default=False)
-    #change in link to important documents
-    link_change = models.BooleanField(default=False)
+    
   
     
 
@@ -173,28 +163,28 @@ class Objective(models.Model):
     #Statement of the objective
     obj_stmt = models.CharField(max_length=3000)
     #The goal with which the objective is associated
-    obj_goal = models.ForeignKey(Region, null=False, related_name='obj_goal')
+    obj_goal = models.ForeignKey(Goal, null=False, related_name='obj_goal')
     
     def __unicode__(self):
         return self.obj_name    
     
 class Indicator(models.Model):
     #The objective with which the indicator is associated
-    ind_obj = models.ForeignKey(Region, null=False, related_name='ind_obj')
+    ind_obj = models.ForeignKey(Objective, null=False, related_name='ind_obj')
     #Indicator description
     #Indicator type (SI/PDI/SO/PD)
     #0 - SI
     #1 - PDI
     #2 - SO
     #3 - PD
-    ind_type_1 = models.CharField(max_length="20", default="None", null=False)
+    ind_type_1 = models.CharField(max_length="100", default="None", null=False)
     #Indicator type (Outcome/Output)
     #true - Outcome
     #false - Output
     ind_type_2 = models.BooleanField(default=True)
     
     def __unicode__(self):
-        return self.id    
+        return self.ind_type_1
 
     
     
@@ -209,7 +199,7 @@ class Output(models.Model):
     output_value = models.IntegerField()
     
     def __unicode__(self):
-        return self.option_value    
+        return unicode(self.output_value)
 
     
 class Outcome(models.Model):
@@ -223,15 +213,37 @@ class Outcome(models.Model):
     outcome_value = models.IntegerField()
     
     def __unicode__(self):
-        return self.outcome_value
+        return unicode(self.outcome_value)
+    
+    
+class Cohort(models.Model):
+    #name
+    cohort_name = models.CharField(max_length=300)
+    #short description
+    cohort_desc = models.CharField(max_length=3000)
+    #no of members
+    cohort_no_of_members = models.IntegerField()
+    #age range
+    cohort_age = models.CharField(max_length=30)
+    #no of males
+    cohort_males = models.IntegerField()
+    #no of females
+    cohort_females = models.IntegerField()
+    #position within the community
+    cohort_pos = models.CharField(max_length=30)
+    #other relevant notes
+    cohort_notes = models.CharField(max_length=3000)
+    
+    def __unicode__(self):
+        return unicode(self.cohort_name)
     
 class Activity(models.Model):
     #title of the activity
     activity_title = models.CharField(max_length=300)
     #short description
     activity_desc = models.CharField(max_length=3000)
-    #relevant cohurt name
-    activity_cohurt = models.ForeignKey(Output, null=False, related_name='activity_cohurt')
+    #relevant cohort name
+    activity_cohort = models.ForeignKey(Cohort, null=False, related_name='activity_cohort')
     #date & time of the activity creation
     activity_created = models.DateTimeField(auto_now_add=True)
     #output with which the activity is associated
@@ -245,8 +257,8 @@ class Measurement(models.Model):
     meas_title = models.CharField(max_length=300)
     #short description of the Measurement
     meas_desc = models.CharField(max_length=3000)
-    #relevant cohurt name
-    meas_cohurt = models.ForeignKey(Output, null=False, related_name='meas_cohurt')
+    #relevant cohort name
+    meas_cohort = models.ForeignKey(Output, null=False, related_name='meas_cohort')
     #date & time of the Measurement creation
     meas_created = models.DateTimeField(auto_now_add=True)
     #outcome with which the Measurement is associated
@@ -255,32 +267,13 @@ class Measurement(models.Model):
     def __unicode__(self):
         return self.meas_title
     
-class Cohurt(models.Model):
-    #name
-    cohurt_name = models.CharField(max_length=300)
-    #short description
-    cohurt_desc = models.CharField(max_length=3000)
-    #no of members
-    cohurt_no_of_members = models.IntegerField()
-    #age range
-    cohurt_age = models.CharField(max_length=30)
-    #no of males
-    cohurt_males = models.IntegerField()
-    #no of females
-    cohurt_females = models.IntegerField()
-    #position within the community
-    cohurt_pos = models.CharField(max_length=30)
-    #other relevant notes
-    cohurt_notes = models.CharField(max_length=3000)
-    
-    def __unicode__(self):
-        return self.id
+
     
 class Volunteer(models.Model):
     #username
     vol_name = models.CharField(max_length=300)
-    #password
-    
+    #email
+    vol_email = models.CharField(max_length=300)
     #sector
     vol_sector = models.ForeignKey(Sector, null=False, related_name='vol_sector')
     #country
@@ -289,8 +282,8 @@ class Volunteer(models.Model):
     vol_activity = models.ManyToManyField(Activity)
     #measurement
     vol_meas = models.ManyToManyField(Measurement)
-    #cohurt
-    vol_cohurt = models.ManyToManyField(Cohurt)
+    #cohort
+    vol_cohort = models.ManyToManyField(Cohort)
     
     def __unicode__(self):
         return self.vol_name

@@ -2,7 +2,7 @@
 #Author : Vaibhavi Desai
 #Github username : desaivaibhavi
 #email : ranihaileydesai@gmail.com
-
+# Parse database configuration from $DATABASE_URL
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -19,7 +19,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','192.168.33.10','192.168.33.10:8000']
+#ALLOWED_HOSTS = ['0.0.0.0','localhost','192.168.33.10','192.168.33.10:8000']
 
 
 # Application definition
@@ -99,3 +99,22 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'PAGINATE_BY': 10
 }
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+
+#settings for smtp 
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'ranipc93@gmail.com'
+SERVER_EMAIL = 'ranipc93@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com' 
+EMAIL_HOST_USER = 'ranipc93@gmail.com' 
+EMAIL_HOST_PASSWORD = 'ranipc1993' 
+EMAIL_PORT = 465

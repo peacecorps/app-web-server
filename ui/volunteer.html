@@ -1,0 +1,61 @@
+<!-- 
+Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
+Author : Vaibhavi Desai
+Github username : desaivaibhavi
+email : ranihaileydesai@gmail.com
+-->
+
+
+
+<!-- page showing information about volunteer on webhub -->
+<html>
+<head>
+	<title>PeaceTrack | volunteer</title>
+</head>
+<body>
+    {% include "header.html" %}
+    <br><br><br><br><br><br>
+    <center><h2><font color="#2c0f00"> PeaceTrack : Volunteer details</font> </h2></center>
+    <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97; padding-right:15px; padding-left:15px;">
+    <br><br>
+<!--    <button type="button" class="btn" onclick="window.location.href='/post_form/'" style="float:right;">New Post</button>-->
+    
+
+    {%if all_vol|length ==0 %}
+        <center><font color="white"><h4>There are No Volunteers right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
+    {% else %}
+        
+        {% for vol in all_vol %}
+        <font color="white">
+        <b>Name of volunteer : </b>{{vol.vol_name}}<br>
+        Sector : {{vol.vol_sector}}<br>
+        Post : {{vol.vol_ptpost}}<br>
+        Activity : 
+        {% for item in vol.vol_activity.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>
+        Measurement : 
+        {% for item in vol.vol_meas.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>
+        Cohort : 
+        {% for item in vol.vol_cohort.all() %}
+            {{ item }}
+        {% endfor %}
+        <br>    
+        <br>
+        {% endfor %}
+
+    {% endif %}
+    
+    
+    </div>
+    </div>
+    <br><br>
+    {% include "footer.html" %}
+
+    
+</body>
+</html>

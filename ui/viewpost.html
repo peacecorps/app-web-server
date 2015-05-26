@@ -44,22 +44,7 @@ email : ranihaileydesai@gmail.com
             </div>
         </div><br>
             
-        {% if post.link_post %}
-        <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-5">
-                    <p><font color="white"><h4>Link : </h4></font></p>
-            </div>
-            <div class="col-md-6">
-                    <a href="http://{{post.link_post}}" target="_blank"><p><font color="white"><h4>{{post.link_post}}</h4></font></p></a>
-            </div>
-        </div><br>
-        {% endif %}
-            
-        <center>
-        <img src={{post.image_post}} class="img-responsive" style="width:350px; height:180px; border:2px solid #2c0f00;">
-        </center>          
+          
            
         <br>    
         <center>
@@ -92,9 +77,7 @@ email : ranihaileydesai@gmail.com
                     {% if rev.description_change %}
                     The description has been changed from "{{rev.description_post_rev}}" to "{{post.description_post}}"
                     {% endif %}
-                    {% if rev.link_change %}
-                    The link has been changed from "{{rev.link_post_rev}}" to "{{post.link_post}}"
-                    {% endif %}
+                   
                     
                 </font></h5>    
                     
