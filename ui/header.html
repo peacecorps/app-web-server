@@ -4,17 +4,9 @@ Author : Vaibhavi Desai
 Github username : desaivaibhavi
 email : ranihaileydesai@gmail.com
 -->
-
-<!-- header of the file -->
-
 <style>
-{% include "bootstrap/css/bootstrap.min.css" %}
-{% include "bootstrap/css/bootstrap.css" %}
+    {% include "bootstrap/css/bootstrap.min.css" %}
 </style>
-
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
 <div class="navbar navbar-fixed-top" role="navigation" style="background-color:#e2d7bb; height:100px;">
       <div class="container">
         <div class="navbar-header">
@@ -24,22 +16,14 @@ email : ranihaileydesai@gmail.com
                 </div>
                 <div class="col-md-10">
                     <a class="navbar-brand" href="/" style="color:#2c0f00;"><h1>Mobile App Control Center</h1></a>
-                    
                     {% if pcuser %}
                     <div class="navbar-right" style="float:right; padding-top:10px; margin-right:-500px;">
                         <a href="/profile/?id={{pcuser.user.id}}"><h4><font color="#2c0f00" style="border:2px solid; padding:5px;">Welcome, <b>{{pcuser.user.first_name}}</b> !</font></a>
                         <a href="/logout_do/"><font color="#2c0f00" style="border:2px solid; padding:5px;">LogOut</font></a></h4>
                     </div>
                     {% endif %}
-
                 </div>
             </div>
-            
-            
-            
         </div>
-      </div>
     </div>
-
-<!--<div style="height:100px; width:auto; background-color:#e2d7bb; margin-top:-10px; margin">
-</div>-->
+</div>
