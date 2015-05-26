@@ -4,19 +4,19 @@
 This tutorial assumes that the user is installing and running the project under the Ubuntu Virtual Machine that is provided by PeaceCorps.
 
 ## Table of Contents
-1. [Install git]()
-2. [Clone Project]()
-3. [Install Django and PostgreSQL]()
-4. [Install VirtualBox and Vagrant]()
-5. [Download PeaceCorps Ubuntu Virtual Machine]()
-6. [Using Vagrant]()
-7. [Install Project Dependencies]()
-8. [Setup PostgreSQL]()
-9. [Update settings.py]()
-10. [Generate Database Tables Corresponding to Django Models]()
-11. [Run Development Server]()
-12. [Try out Mobile App Control Center]()
-13. [Exit the Virtual Machine]()
+1. [Install git](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#install-git)
+2. [Clone Project](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#clone-project)
+3. [Install Django and PostgreSQL](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#install-django-and-postgresql)
+4. [Install VirtualBox and Vagrant](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#install-virtualbox-and-vagrant)
+5. [Download PeaceCorps Ubuntu Virtual Machine](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#download-peacecorps-ubuntu-virtual-machine)
+6. [Using Vagrant](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#using-vagrant)
+7. [Install Project Dependencies](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#install-project-dependencies)
+8. [Setup PostgreSQL](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#setup-postgresql)
+9. [Update settings.py](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#update-settingspy)
+10. [Generate Database Tables Corresponding to Django Models](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#generate-database-tables-corresponding-to-django-models)
+11. [Run Development Server](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#run-development-server)
+12. [Try out Mobile App Control Center](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#try-out-mobile-app-control-center)
+13. [Exit the Virtual Machine](https://github.com/Nerdylicious/app-web-server/blob/master/docs/Installation%20Guide.md#exit-the-virtual-machine)
 
 ## Install git
 
