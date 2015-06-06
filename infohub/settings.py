@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',   
     'webhub',
     'rest_framework',
+    'rest_framework_swagger',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -117,3 +118,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'pc.mobile.control.center.com' 
 EMAIL_HOST_PASSWORD = 'alphadeltaepsilon' 
 EMAIL_PORT = 465
+
+SWAGGER_SETTINGS = {
+    'is_authenticated' : True,
+}
