@@ -85,17 +85,18 @@ def pcuser_detail(request, pk):
     elif request.method == 'DELETE':
         pcuser.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-class PostViewSet(viewsets.ModelViewSet):
+
+class PostViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    Post endpoint that provides `list` and `detail` actions
+    `list` action returns a list of all Posts
+    `detail` action returns a particular Post instance based on id
     """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-        
-    
-    
-    
+
+'''
+#following functionality is replaced by the PostViewSet
 #List all posts, or create a new post.
 @api_view(['GET', 'POST'])
 def post_list(request):
@@ -133,7 +134,7 @@ def post_detail(request, pk):
     elif request.method == 'DELETE':
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-        
+'''
 
 class RevPostViewSet(viewsets.ModelViewSet):
     """

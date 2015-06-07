@@ -7,7 +7,6 @@ from django.conf.urls import patterns, url, include
 from rest_framework import routers
 from webhub import views
 
-
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'posts', views.PostViewSet)
@@ -25,10 +24,6 @@ router.register(r'activity', views.ActivityViewSet)
 router.register(r'measurement', views.MeasurementViewSet)
 router.register(r'cohort', views.CohortViewSet)
 router.register(r'volunteer', views.VolunteerViewSet)
-
-
-
-
 
 urlpatterns = patterns('',
     url(r'^index/$', views.index, name='index'),
@@ -57,10 +52,8 @@ urlpatterns = patterns('',
     url(r'^change_pass/$', views.change_pass, name='change_pass'),
     url(r'^change_pass_page/$', views.change_pass_page, name='change_pass_page'),
     url(r'^pcuser/$', views.pcuser_list, name='pcuser_list'),
-    url(r'^post/$', views.post_list, name='post_list'),
     url(r'^revpost/$', views.revpost_list, name='revpost_list'),
     url(r'^pcuser/(?P<pk>[0-9]+)/$', views.pcuser_detail, name='pcuser_detail'),
-    url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
     url(r'^revpost/(?P<pk>[0-9]+)/$', views.revpost_detail, name='revpost_detail'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/', include(router.urls)),
@@ -71,9 +64,6 @@ urlpatterns = patterns('',
     url(r'^volunteer/$', views.volunteer, name='volunteer'),
     url(r'^summary/$', views.summary, name='summary'),
     url(r'^testDB/$', views.testDB, name='testDB'),
+    #url(r'^post/$', views.post_list, name='post_list'),
+    #url(r'^post/(?P<pk>[0-9]+)/$', views.post_detail, name='post_detail'),
 )
-
-
-
-
-
