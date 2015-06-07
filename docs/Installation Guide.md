@@ -119,7 +119,6 @@ On the VM, update and upgrade:
 Install project dependencies:
 
     sudo apt-get install python-dev
-    sudo apt-get install posgresql-9.3
     sudo apt-get install python-psycopg2
     sudo apt-get install libpq-dev
     sudo apt-get install python-pip
@@ -130,7 +129,6 @@ Install all Python dependencies specified in the [requirements.txt](https://gith
     sudo pip install Jinja2==2.7.3
     sudo pip install MarkupSafe==0.23
     sudo pip install Pillow==2.5.1
-    sudo pip install argparse==1.2.1
     sudo pip install dj-database-url==0.3.0
     sudo pip install dj-static==0.0.6
     sudo pip install django-toolbelt==0.0.1
@@ -138,7 +136,8 @@ Install all Python dependencies specified in the [requirements.txt](https://gith
     sudo pip install gunicorn==19.1.0
     sudo pip install psycopg2==2.5.3
     sudo pip install static3==0.5.1
-    sudo pip install wsgiref==0.1.2
+    sudo pip install django-rest-swagger==0.3.2
+    sudo pip install PyYAML==3.11
 
 ## Setup PostgreSQL
 
@@ -224,10 +223,10 @@ EMAIL_HOST_USER = 'pc.mobile.control.center.com'
 EMAIL_HOST_PASSWORD = 'alphadeltaepsilon'
 EMAIL_PORT = 465
 ```
-Comment out the following lines:
+Comment out the following lines like so:
 ```
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 ```
 
 ## Generate Database Tables Corresponding to Django Models
