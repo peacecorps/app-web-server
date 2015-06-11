@@ -6,10 +6,8 @@ from webhub.models import Pcuser, Post
 
 class PostAPITestCase(APITestCase):
 
-    #add setUp fixture
+    def setUp(self):
 
-    def test_get_posts(self):
-        
         u1 = User.objects.create_superuser(username='admin', password='password', email='')
         u1.save()
 
@@ -20,11 +18,13 @@ class PostAPITestCase(APITestCase):
                 title_post = "Test",
                 description_post = "Tester")
         p1.save()
+
+    def test_get_posts(self):
         
         self.client.login(username='admin', password='password')
-        #name of viewset is post-detail
-
+        p1 = Post.objects.all().first()
         post_id = str(p1.id)
+        #name of viewset is post-detail
         url = reverse('post-detail', args=[post_id])
         response = self.client.get(url)
         print response
