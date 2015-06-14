@@ -82,6 +82,15 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.accepted_media_type, 'application/json')
             self.assertEqual(response.render().content, content)
 
+    def test_detail_negative_cases(self):
+
+        nonexistant_post_ids = [99, 100, 101, 1000, 1001, 1002, -1, -99, -100]
+
+        for post_id in nonexistant_post_ids:
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_list_delete_cases(self):
         
         url = reverse('post-list')
