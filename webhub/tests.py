@@ -36,6 +36,24 @@ class PostAPITestCase(APITestCase):
         #authenticate
         self.client.login(username='admin', password='password')
 
+    def test_detail_positive_cases(self):
+        
+        post_list = Post.objects.all().order_by('id')
+
+        for post in post_list:
+
+            post_id = str(post.id)
+            serializer = PostSerializer(post)
+            content = JSONRenderer().render(serializer.data)
+
+            #name of viewset is post-detail
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.get(url)
+
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.accepted_media_type, 'application/json')
+            self.assertEqual(response.render().content, content)
+
     def test_list_delete_cases(self):
         
         url = reverse('post-list')
@@ -54,24 +72,6 @@ class PostAPITestCase(APITestCase):
         url = reverse('post-list')
         response = self.client.options(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_list_positive_cases(self):
-        
-        post_list = Post.objects.all().order_by('id')
-
-        for post in post_list:
-
-            post_id = str(post.id)
-            serializer = PostSerializer(post)
-            content = JSONRenderer().render(serializer.data)
-
-            #name of viewset is post-detail
-            url = reverse('post-detail', args=[post_id])
-            response = self.client.get(url)
-
-            self.assertEqual(response.status_code, status.HTTP_200_OK)
-            self.assertEqual(response.accepted_media_type, 'application/json')
-            self.assertEqual(response.render().content, content)
 
     def test_list_post_cases(self):
         
@@ -140,6 +140,36 @@ class PostAPITestCase(APITestCase):
 
         response = self.client.put(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_list_unauthenticated_cases(self):
+
+        self.client.force_authenticate(user=None)
+        url = reverse('post-list')
+
+        data = {'owner' : 1,
+            'title_post' : 'Test 1',
+            'description_post' : 'Test 1',
+            'created' : datetime.now(),
+            'updated' : datetime.now(),
+            'id' : '1'}
+
+        response = self.client.delete(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.client.head(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.client.options(url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        response = self.client.put(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def tearDown(self):
         #unauthenticate
