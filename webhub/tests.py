@@ -33,8 +33,34 @@ class PostAPITestCase(APITestCase):
         p2.save()
         p3.save()
 
-        #authenticate
+        self.data_1 = {'owner' : 1,
+                'title_post' : 'Test 1',
+                'description_post' : 'Test 1',
+                'created' : datetime.now(),
+                'updated' : datetime.now(),
+                'id' : '1'}
+
+        self.data_2 = {'owner' : 1,
+                'title_post' : 'Test 2',
+                'description_post' : 'Test 2',
+                'created' : datetime.now(),
+                'updated' : datetime.now(),
+                'id' : '2'}
+
+        self.data_3 = {'owner' : 1,
+                'title_post' : 'Test 3',
+                'description_post' : 'Test 3',
+                'created' : datetime.now(),
+                'updated' : datetime.now(),
+                'id' : '3'}
+
+        self.authenticate()
+
+    def authenticate(self):
         self.client.login(username='admin', password='password')
+
+    def unauthenticate(self):
+        self.client.force_authenticate(user=None)
 
     def test_detail_positive_cases(self):
         
@@ -77,81 +103,32 @@ class PostAPITestCase(APITestCase):
         
         url = reverse('post-list')
 
-        data = {'owner' : 1,
-            'title_post' : 'Test 1',
-            'description_post' : 'Test 1',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '1'}
-
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-        data = {'owner' : 1,
-            'title_post' : 'Test 2',
-            'description_post' : 'Test 2',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '2'}
-
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(url, self.data_2, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-        data = {'owner' : 1,
-            'title_post' : 'Test 3',
-            'description_post' : 'Test 3',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '3'}
-
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(url, self.data_3, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_list_put_cases(self):
 
         url = reverse('post-list')
 
-        data = {'owner' : 1,
-            'title_post' : 'Test 1',
-            'description_post' : 'Test 1',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '1'}
-
-        response = self.client.put(url, data, format='json')
+        response = self.client.put(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-        data = {'owner' : 1,
-            'title_post' : 'Test 2',
-            'description_post' : 'Test 2',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '2'}
-
-        response = self.client.put(url, data, format='json')
+        response = self.client.put(url, self.data_2, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
-        data = {'owner' : 1,
-            'title_post' : 'Test 3',
-            'description_post' : 'Test 3',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '3'}
-
-        response = self.client.put(url, data, format='json')
+        response = self.client.put(url, self.data_3, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_list_unauthenticated_cases(self):
 
-        self.client.force_authenticate(user=None)
+        self.unauthenticate()
         url = reverse('post-list')
-
-        data = {'owner' : 1,
-            'title_post' : 'Test 1',
-            'description_post' : 'Test 1',
-            'created' : datetime.now(),
-            'updated' : datetime.now(),
-            'id' : '1'}
 
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -165,12 +142,11 @@ class PostAPITestCase(APITestCase):
         response = self.client.options(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        response = self.client.post(url, data, format='json')
+        response = self.client.post(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-        response = self.client.put(url, data, format='json')
+        response = self.client.put(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def tearDown(self):
-        #unauthenticate
-        self.client.force_authenticate(user=None)
+        self.unauthenticate()
