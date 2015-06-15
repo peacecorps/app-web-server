@@ -64,6 +64,17 @@ class PostAPITestCase(APITestCase):
     def unauthenticate(self):
         self.client.force_authenticate(user=None)
 
+    def test_detail_delete_cases(self):
+
+        post_list = Post.objects.all().order_by('id')
+
+        for post in post_list:
+            post_id = str(post.id)
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.delete(url)
+            self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+            self.assertIsNotNone(Post.objects.get(id=post_id))
+
     def test_detail_positive_cases(self):
         
         post_list = Post.objects.all().order_by('id')
@@ -94,9 +105,12 @@ class PostAPITestCase(APITestCase):
     def test_list_delete_cases(self):
         
         url = reverse('post-list')
+        post_list = Post.objects.all().order_by('id')
         response = self.client.delete(url)
-
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        for post in post_list:
+            self.assertIsNotNone(Post.objects.get(id=post.id))
 
     def test_list_get_cases(self):
 
@@ -137,6 +151,7 @@ class PostAPITestCase(APITestCase):
     def test_list_post_cases(self):
         
         url = reverse('post-list')
+        post_list_before = Post.objects.all().order_by('id')
 
         response = self.client.post(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -147,9 +162,16 @@ class PostAPITestCase(APITestCase):
         response = self.client.post(url, self.data_3, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
+        post_list_after = Post.objects.all().order_by('id')
+        self.assertEqual(len(post_list_before), len(post_list_after))
+
+        for post in post_list_before:
+            self.assertEqual(Post.objects.get(id=post.id), post)
+
     def test_list_put_cases(self):
 
         url = reverse('post-list')
+        post_list_before = Post.objects.all().order_by('id')
 
         response = self.client.put(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -159,6 +181,12 @@ class PostAPITestCase(APITestCase):
 
         response = self.client.put(url, self.data_3, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        post_list_after = Post.objects.all().order_by('id')
+        self.assertEqual(len(post_list_before), len(post_list_after))
+
+        for post in post_list_before:
+            self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_list_unauthenticated_cases(self):
 
