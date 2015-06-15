@@ -138,7 +138,40 @@ class PostAPITestCase(APITestCase):
         for post in post_list_before:
             self.assertEqual(Post.objects.get(id=post.id), post)
 
-    def test_detail_put_cases(self):
+    def test_detail_unauthenticated_cases(self):
+
+        self.unauthenticate()
+        post_list_before = Post.objects.all().order_by('id')
+
+        for post in post_list_before:
+
+            post_id = str(post.id)
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.delete(url)
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+            response = self.client.head(url)
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+            response = self.client.options(url)
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+            response = self.client.post(url, self.data_1, format='json')
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+            response = self.client.put(url, self.data_1, format='json')
+            self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        post_list_after = Post.objects.all().order_by('id')
+        self.assertEqual(len(post_list_before), len(post_list_after))
+
+        for post in post_list_before:
+            self.assertEqual(Post.objects.get(id=post.id), post)
+
+    def test_list_put_cases(self):
 
         post_list_before = Post.objects.all().order_by('id')
 
@@ -244,6 +277,7 @@ class PostAPITestCase(APITestCase):
 
         self.unauthenticate()
         url = reverse('post-list')
+        post_list_before = Post.objects.all().order_by('id')
 
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -262,6 +296,12 @@ class PostAPITestCase(APITestCase):
 
         response = self.client.put(url, self.data_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+        post_list_after = Post.objects.all().order_by('id') 
+        self.assertEqual(len(post_list_before), len(post_list_after))
+
+        for post in post_list_before:
+            self.assertEqual(Post.objects.get(id=post.id), post)
 
     def tearDown(self):
         self.unauthenticate()
