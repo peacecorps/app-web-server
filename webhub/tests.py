@@ -75,6 +75,26 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
             self.assertIsNotNone(Post.objects.get(id=post_id))
 
+    def test_detail_head_cases(self):
+
+        post_list = Post.objects.all().order_by('id')
+
+        for post in post_list:
+            post_id = str(post.id)
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.head(url)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_detail_options_cases(self):
+
+        post_list = Post.objects.all().order_by('id')
+
+        for post in post_list:
+            post_id = str(post.id)
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.options(url)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+
     def test_detail_positive_cases(self):
         
         post_list = Post.objects.all().order_by('id')
