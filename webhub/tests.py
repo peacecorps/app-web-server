@@ -85,6 +85,15 @@ class PostAPITestCase(APITestCase):
             response = self.client.head(url)
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+    def test_detail_negative_cases(self):
+
+        nonexistant_post_ids = [99, 100, 101, 1000, 1001, 1002, -1, -99, -100]
+
+        for post_id in nonexistant_post_ids:
+            url = reverse('post-detail', args=[post_id])
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
     def test_detail_options_cases(self):
 
         post_list = Post.objects.all().order_by('id')
@@ -113,14 +122,21 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.accepted_media_type, 'application/json')
             self.assertEqual(response.render().content, content)
 
-    def test_detail_negative_cases(self):
+    def test_detail_post_cases(self):
+        
+        post_list_before = Post.objects.all().order_by('id')
 
-        nonexistant_post_ids = [99, 100, 101, 1000, 1001, 1002, -1, -99, -100]
-
-        for post_id in nonexistant_post_ids:
+        for post in post_list_before:
+            post_id = str(post.id)
             url = reverse('post-detail', args=[post_id])
-            response = self.client.get(url)
-            self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+            response = self.client.post(url, self.data_1, format='json')
+            self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+        post_list_after = Post.objects.all().order_by('id')
+        self.assertEqual(len(post_list_before), len(post_list_after))
+
+        for post in post_list_before:
+            self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_list_delete_cases(self):
         
