@@ -13,6 +13,7 @@ from webhub.serializers import PostSerializer
 class PostAPITestCase(APITestCase):
 
     def setUp(self):
+        """Setup the test database, test data and authenticate"""
 
         u1 = User.objects.create_superuser(username='admin',
                                            password='password', email='')
@@ -61,12 +62,15 @@ class PostAPITestCase(APITestCase):
         self.authenticate()
 
     def authenticate(self):
+        """Authenticate with the API using a username and password"""
         self.client.login(username='admin', password='password')
 
     def unauthenticate(self):
+        """Unauthenticate with the API"""
         self.client.force_authenticate(user=None)
 
     def test_detail_delete_cases(self):
+        """Test HTTP DELETE API calls to post-detail endpoint"""
 
         post_list = Post.objects.all().order_by('id')
 
@@ -79,6 +83,7 @@ class PostAPITestCase(APITestCase):
             self.assertIsNotNone(Post.objects.get(id=post_id))
 
     def test_detail_head_cases(self):
+        """Test HTTP HEAD API calls to post-detail endpoint"""
 
         post_list = Post.objects.all().order_by('id')
 
@@ -89,6 +94,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_detail_negative_cases(self):
+        """Test negative API calls to post-detail endpoint"""
 
         nonexistant_post_ids = [99, 100, 101, 1000, 1001, 1002, -1, -99, -100]
 
@@ -98,6 +104,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_detail_options_cases(self):
+        """Test HTTP OPTIONS API calls to post-detail endpoint"""
 
         post_list = Post.objects.all().order_by('id')
 
@@ -108,6 +115,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_detail_positive_cases(self):
+        """Test positive API calls to post-detail endpoint"""
 
         post_list = Post.objects.all().order_by('id')
 
@@ -126,6 +134,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(response.render().content, content)
 
     def test_detail_post_cases(self):
+        """Test HTTP POST API calls to post-detail endpoint"""
 
         post_list_before = Post.objects.all().order_by('id')
 
@@ -143,6 +152,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_detail_put_cases(self):
+        """Test HTTP PUT API calls to post-detail endpoint"""
 
         post_list_before = Post.objects.all().order_by('id')
 
@@ -160,6 +170,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_detail_unauthenticated_cases(self):
+        """Test unauthenticated API calls to post-detail endpoint"""
 
         self.unauthenticate()
         post_list_before = Post.objects.all().order_by('id')
@@ -193,6 +204,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_list_delete_cases(self):
+        """Test HTTP DELETE API calls to post-list endpoint"""
 
         url = reverse('post-list')
         post_list = Post.objects.all().order_by('id')
@@ -204,6 +216,7 @@ class PostAPITestCase(APITestCase):
             self.assertIsNotNone(Post.objects.get(id=post.id))
 
     def test_list_get_cases(self):
+        """Test HTTP GET API calls to post-list endpoint"""
 
         url = reverse('post-list')
         response = self.client.get(url)
@@ -231,18 +244,21 @@ class PostAPITestCase(APITestCase):
             i = i + 1
 
     def test_list_head_cases(self):
+        """Test HTTP HEAD API calls to post-list endpoint"""
 
         url = reverse('post-list')
         response = self.client.head(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_list_options_cases(self):
+        """Test HTTP OPTIONS API calls to post-list endpoint"""
 
         url = reverse('post-list')
         response = self.client.options(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_list_post_cases(self):
+        """Test HTTP POST API calls to post-list endpoint"""
 
         url = reverse('post-list')
         post_list_before = Post.objects.all().order_by('id')
@@ -266,6 +282,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_list_put_cases(self):
+        """Test HTTP PUT API calls to post-list endpoint"""
 
         url = reverse('post-list')
         post_list_before = Post.objects.all().order_by('id')
@@ -289,6 +306,7 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(Post.objects.get(id=post.id), post)
 
     def test_list_unauthenticated_cases(self):
+        """Test unauthenticated API calls to post-list endpoint"""
 
         self.unauthenticate()
         url = reverse('post-list')
@@ -319,4 +337,5 @@ class PostAPITestCase(APITestCase):
             self.assertEqual(Post.objects.get(id=post.id), post)
 
     def tearDown(self):
+        """Unauthenticate from API on teardown"""
         self.unauthenticate()
