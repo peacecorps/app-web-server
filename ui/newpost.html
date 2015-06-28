@@ -26,6 +26,15 @@ email : ranihaileydesai@gmail.com
                 </div>
                 <div class="col-md-6">
                     <input type="text" name="title_post">
+                    {% if form.title_post.errors %}
+                        <p>
+                            <strong>
+                                {% for error in form.title_post.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </strong>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
@@ -36,6 +45,15 @@ email : ranihaileydesai@gmail.com
                 </div>
                 <div class="col-md-6">
                     <textarea name="description_post" rows="5"></textarea>
+                    {% if form.description_post.errors %}
+                        <p>
+                            <strong>
+                                {% for error in form.description_post.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </strong>
+                        </p>
+                    {% endif %}
                 </div>
             </div>
             <br>
