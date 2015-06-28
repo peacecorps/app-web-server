@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',   
     'webhub',
     'rest_framework',
+    'peacetrack',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -55,11 +56,10 @@ WSGI_APPLICATION = 'infohub.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'rani',
-        'HOST': '0.0.0.0',
-        'PORT': '5432',
+        'NAME': 'webapp',
+        'USER': 'myuser',
+        'PASSWORD': 'mypassword',
+        'HOST': 'localhost',
     }
 }
 
@@ -100,8 +100,8 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 10
 }
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -112,9 +112,9 @@ ALLOWED_HOSTS = ['*']
 
 #settings for smtp 
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'ranipc93@gmail.com'
-SERVER_EMAIL = 'ranipc93@gmail.com'
+DEFAULT_FROM_EMAIL = 'pc.mobile.control.center@gmail.com'
+SERVER_EMAIL = 'pc.mobile.control.center@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = 'ranipc93@gmail.com' 
-EMAIL_HOST_PASSWORD = 'ranipc1993' 
+EMAIL_HOST_USER = 'pc.mobile.control.center.com' 
+EMAIL_HOST_PASSWORD = 'alphadeltaepsilon' 
 EMAIL_PORT = 465

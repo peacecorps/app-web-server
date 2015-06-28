@@ -6,6 +6,7 @@
 
 from django.contrib import admin
 from webhub.models import *
+from peacetrack.models import *
 
 
 admin.site.register(Pcuser)

@@ -12,22 +12,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'posts', views.PostViewSet)
 router.register(r'revposts', views.RevPostViewSet)
-router.register(r'regions', views.RegionViewSet)
-router.register(r'sectors', views.SectorViewSet)
-router.register(r'ptposts', views.PTPostViewSet)
-router.register(r'projects', views.ProjectViewSet)
-router.register(r'goals', views.GoalViewSet)
-router.register(r'objectives', views.ObjectiveViewSet)
-router.register(r'indicators', views.IndicatorViewSet)
-router.register(r'outputs', views.OutputViewSet)
-router.register(r'outcomes', views.OutcomeViewSet)
-router.register(r'activity', views.ActivityViewSet)
-router.register(r'measurement', views.MeasurementViewSet)
-router.register(r'cohort', views.CohortViewSet)
-router.register(r'volunteer', views.VolunteerViewSet)
-
-
-
 
 
 urlpatterns = patterns('',
@@ -40,7 +24,6 @@ urlpatterns = patterns('',
     url(r'^login_do/$', views.login_do, name='login_do'),
     url(r'^logout_do/$', views.logout_do, name='logout_do'),
     url(r'^malaria/$', views.malaria, name='malaria'),
-    url(r'^peacetrack/$', views.peacetrack, name='peacetrack'),
     url(r'^post_form/$', views.post_form, name='post_form'),
     url(r'^post_new/$', views.post_new, name='post_new'),
     url(r'^edit_post/$', views.edit_post, name='edit_post'),
@@ -68,8 +51,6 @@ urlpatterns = patterns('',
     url(r'^policies/$', views.policies, name='policies'),
     url(r'^details/$', views.details, name='details'),
     url(r'^helpPC/$', views.helpPC, name='helpPC'),
-    url(r'^volunteer/$', views.volunteer, name='volunteer'),
-    url(r'^summary/$', views.summary, name='summary'),
     url(r'^testDB/$', views.testDB, name='testDB'),
 )
 

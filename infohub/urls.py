@@ -15,7 +15,6 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('webhub.urls')),
-    
-
+    url(r'^peacetrack/', include('peacetrack.urls')),
 
 )
