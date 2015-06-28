@@ -31,7 +31,7 @@ from webhub import xlrd
 
 import smtplib
 
-#SMTP port for sending emails
+# SMTP port for sending emails
 SMTP_PORT = 465
 
 #link for the localhost
