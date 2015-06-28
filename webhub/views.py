@@ -28,6 +28,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from paths import cpspath
 from webhub import xlrd
+from webhub.forms import PostForm
 
 import smtplib
 
@@ -1021,33 +1022,38 @@ def view_post(request):
         return HttpResponse(e)
     
 
-#The call function for new post form.    
-def post_form(request):
-    retval = check(request)
-    if retval <> None:
-        return retval
-    return HttpResponse(jinja_environ.get_template('newpost.html').render({"pcuser":request.user.pcuser, 'owner':request.user.pcuser}))
-
-#Called when a user clicks submit on new post form.                                                                          
+# Called when a user clicks submit on new post form.
 @csrf_exempt
 def post_new(request):
-    #check for user login
+
+    # check if the user is logged in
     retval = check(request)
-    if retval <> None:
+    if retval is not None:
         return retval
-    owner = request.user.pcuser
-    title_post = request.REQUEST['title']
-    description_post = request.REQUEST['description']
-    
-   
-    entry = Post(owner=owner, 
-                 title_post=title_post,
-                 description_post=description_post,
-                
-                 )
-    entry.save()
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                          "text":'Post created successfully.',"text1":'Click here to view post.', "link": '/view_post/?key=' + str(entry.id)}))
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner = request.user.pcuser
+            post.save()
+            return HttpResponse(jinja_environ.get_template('notice.html').
+                                render({"pcuser": request.user.pcuser,
+                                        "text": 'Post created successfully.',
+                                        "text1": 'Click here to view post.',
+                                        "link": '/view_post/?key=' +
+                                        str(post.id)}))
+        else:
+            return HttpResponse(jinja_environ.get_template('newpost.html').
+                                render({"pcuser": request.user.pcuser,
+                                        "owner": request.user.pcuser,
+                                        "form": form}))
+    else:
+        form = PostForm()
+        return HttpResponse(jinja_environ.get_template('newpost.html').
+                            render({"pcuser": request.user.pcuser,
+                                    "owner": request.user.pcuser,
+                                    "form": form}))
 
 #Calls the edit post page. Also, sends the autofill form data.    
 def edit_post_page(request):

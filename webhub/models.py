@@ -7,6 +7,7 @@ from django.db import models
 from django import forms
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 import os
 from uuid import uuid4
 from paths import cpspath
@@ -50,27 +51,29 @@ class Pcuser(models.Model):
     def __unicode__(self):
         return self.user.username
 
+# Post table stores details about posts
 
-#Post table stores details about posts
 
 class Post(models.Model):
-    #The owner of the post
+    # The owner of the post
     owner = models.ForeignKey(Pcuser, null=False, related_name='owner')
-    #title
-    title_post = models.CharField(max_length=300)
-    #description
-    description_post = models.CharField(max_length=2000)
-    #link to important documents
+    title_post = models.CharField(max_length=100,
+                                  validators=[
+                                      RegexValidator(
+                                          r'^[(A-Z)|(a-z)|(0-9)|(\s)|(\.)|(,)|(\-)|(!)]+$'
+                                      )]
+                                  )
+    description_post = models.CharField(max_length=5000)
+    # link to important documents
     link_post = models.CharField(max_length=2000)
-    #field to note the timestamp when the post was created
+    # field to note the timestamp when the post was created
     created = models.DateTimeField(auto_now_add=True)
-    #field to note the timestamp when the post was last updated
+    # field to note the timestamp when the post was last updated
     updated = models.DateTimeField(auto_now=True)
-    
-    
+
     def __unicode__(self):
         return self.owner.user.username
-    
+
 #Post table stores details about revision history of edit of the posts
 
 class RevPost(models.Model):
