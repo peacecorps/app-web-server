@@ -6,12 +6,27 @@
 from django.conf.urls import patterns, url, include
 from rest_framework import routers
 from webhub import views
+from peacetrack import views as peacetrack_views
 
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'posts', views.PostViewSet)
 router.register(r'revposts', views.RevPostViewSet)
+router.register(r'regions', peacetrack_views.RegionViewSet)
+router.register(r'sectors', peacetrack_views.SectorViewSet)
+router.register(r'ptposts', peacetrack_views.PTPostViewSet)
+router.register(r'projects', peacetrack_views.ProjectViewSet)
+router.register(r'goals', peacetrack_views.GoalViewSet)
+router.register(r'objectives', peacetrack_views.ObjectiveViewSet)
+router.register(r'indicators', peacetrack_views.IndicatorViewSet)
+router.register(r'outputs', peacetrack_views.OutputViewSet)
+router.register(r'outcomes', peacetrack_views.OutcomeViewSet)
+router.register(r'activity', peacetrack_views.ActivityViewSet)
+router.register(r'measurement', peacetrack_views.MeasurementViewSet)
+router.register(r'cohort', peacetrack_views.CohortViewSet)
+router.register(r'volunteer', peacetrack_views.VolunteerViewSet)
+
 
 
 urlpatterns = patterns('',
