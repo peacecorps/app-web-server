@@ -999,10 +999,11 @@ def logout_do(request):
     return HttpResponse(jinja_environ.get_template('redirect.html').render({"pcuser":None,"redirect_url":redirect_url}))
 
 
-#Called when a user goes to malaria track.
 def malaria(request):
-    all_posts = Post.objects.all()
-    return HttpResponse(jinja_environ.get_template('malaria.html').render({"all_posts":all_posts, "pcuser":request.user.pcuser}))
+    post_list = Post.objects.all()
+    return render(request,
+                  'webhub/malaria.html',
+                  {'post_list': post_list})
 
 #called when a user wants to view a particular post. Also shows up the revision history
 def view_post(request):

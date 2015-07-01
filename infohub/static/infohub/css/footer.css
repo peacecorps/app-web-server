@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.footerBkg {
+    background-color: #e2d7bb;
+    width: 100%;
+    padding: 30px 0px;
+    text-align: center;
+    font-size: 13px;
+    color: rgb(255, 255, 255);
+    line-height: 26px;
+}
+
+div{
+    margin: 0px;
+    padding: 0px;
+    border: 0px none;
+    font: inherit;
+    vertical-align: baseline;
+}

@@ -1,9 +1,3 @@
-#Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
-#Author : Vaibhavi Desai
-#Github username : desaivaibhavi
-#email : ranihaileydesai@gmail.com
-# Parse database configuration from $DATABASE_URL
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -19,21 +13,23 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-#ALLOWED_HOSTS = ['0.0.0.0','localhost','192.168.33.10','192.168.33.10:8000']
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
+# ALLOWED_HOSTS = ['0.0.0.0','localhost','192.168.33.10','192.168.33.10:8000']
 
 
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',   
-    'webhub',
+    'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'infohub',
+    'webhub',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -59,7 +55,7 @@ DATABASES = {
         'NAME': 'webapp',
         'USER': 'myuser',
         'PASSWORD': 'mypassword',
-	'HOST': 'localhost',
+        'HOST': 'localhost',
     }
 }
 
@@ -79,7 +75,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-MEDIA_ROOT='/vagrant/submit/media/propics/'
+MEDIA_ROOT = '/vagrant/submit/media/propics/'
 STATIC_URL = '/static/'
 STATIC_ROOT = ''
 
@@ -100,8 +96,8 @@ REST_FRAMEWORK = {
     'PAGINATE_BY': 10
 }
 # Parse database configuration from $DATABASE_URL
-#import dj_database_url
-#DATABASES['default'] =  dj_database_url.config()
+# import dj_database_url
+# DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -110,15 +106,15 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 
-#settings for smtp 
+# settings for smtp
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'pc.mobile.control.center@gmail.com'
 SERVER_EMAIL = 'pc.mobile.control.center@gmail.com'
-EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_HOST_USER = 'pc.mobile.control.center.com' 
-EMAIL_HOST_PASSWORD = 'alphadeltaepsilon' 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pc.mobile.control.center.com'
+EMAIL_HOST_PASSWORD = 'alphadeltaepsilon'
 EMAIL_PORT = 465
 
 SWAGGER_SETTINGS = {
-    'is_authenticated' : True,
+    'is_authenticated': True,
 }

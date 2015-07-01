@@ -1,0 +1,37 @@
+{% extends "infohub/base.html" %}
+
+{% block content %}
+<head>
+    <title>Malaria | infoHub</title>
+</head>
+<body>
+    <br><br><br><br><br><br>
+    <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
+    <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97; padding-right:15px; padding-left:15px;">
+        <br><br>
+        <button type="button" class="btn" onclick="window.location.href='/post_new/'" style="float:right;">New Post</button>
+        {% if post_list %}
+            <table class="table">
+            <thead>
+                <tr>
+                    <th><font color="white"><h3>Post</h3></font></th>
+                    <th><font color="white"><h3>Action</h3></font></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in post_list %}
+                    <tr>
+                    <td><a href="/view_post/?key={{post.id}}"><font color="white">{{ post.title_post }}</font></a></td>
+                    <td><button class="btn" type="button" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button></td></tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        {% else %}
+            <center><font color="white"><h4>There are No Posts right now.</h4></font><br><br><br><br><br><br><br><br><br><br></center>
+        {% endif %}
+        </div>
+    </div>
+    <br><br>
+</body>
+{% endblock %}
