@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
 from webhub.models import *
-from peacetrack.models import *
 
 from rest_framework import serializers
 
