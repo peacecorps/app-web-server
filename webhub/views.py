@@ -395,7 +395,6 @@ def view_post(request):
         return HttpResponse(e)
     
 
-# Called when a user clicks submit on new post form.
 @csrf_exempt
 def post_new(request):
 
@@ -404,6 +403,7 @@ def post_new(request):
     if retval is not None:
         return retval
 
+    form = PostForm()
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -416,17 +416,9 @@ def post_new(request):
                                         "text1": 'Click here to view post.',
                                         "link": '/view_post/?key=' +
                                         str(post.id)}))
-        else:
-            return HttpResponse(jinja_environ.get_template('newpost.html').
-                                render({"pcuser": request.user.pcuser,
-                                        "owner": request.user.pcuser,
-                                        "form": form}))
-    else:
-        form = PostForm()
-        return HttpResponse(jinja_environ.get_template('newpost.html').
-                            render({"pcuser": request.user.pcuser,
-                                    "owner": request.user.pcuser,
-                                    "form": form}))
+    return render(request,
+                  'webhub/new_post.html',
+                  {'form': form})
 
 #Calls the edit post page. Also, sends the autofill form data.    
 def edit_post_page(request):
