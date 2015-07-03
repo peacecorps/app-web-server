@@ -410,12 +410,12 @@ def post_new(request):
             post = form.save(commit=False)
             post.owner = request.user.pcuser
             post.save()
-            return HttpResponse(jinja_environ.get_template('notice.html').
-                                render({"pcuser": request.user.pcuser,
-                                        "text": 'Post created successfully.',
-                                        "text1": 'Click here to view post.',
-                                        "link": '/view_post/?key=' +
-                                        str(post.id)}))
+            return render(request,
+                          'webhub/notice.html',
+                          {'text': 'Post created successfully.',
+                           'text1': 'Click here to view post.',
+                           'link': '/view_post/?key=' +
+                           str(post.id)})
     return render(request,
                   'webhub/new_post.html',
                   {'form': form})
