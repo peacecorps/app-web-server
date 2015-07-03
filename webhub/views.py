@@ -395,7 +395,6 @@ def view_post(request):
         return HttpResponse(e)
     
 
-@csrf_exempt
 def post_new(request):
 
     # check if the user is logged in

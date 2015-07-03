@@ -12,6 +12,7 @@
     <center><b><h3><font color="white">New Post</font></h3></b></center>
     <br>
     <form action="/post_new/" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="row">
             <div class="col-md-1">
             </div>
