@@ -378,15 +378,15 @@ def malaria(request):
                   {'post_list': post_list})
 
 
-def view_post(request):
+def view_post(request, post_id):
 
     retval = check(request)
     if retval is not None:
         return retval
 
-    key = request.REQUEST['key']
-    post = get_post_by_id(key)
-    revpost = get_revpost_of_owner(key)
+    #key = request.REQUEST['key']
+    post = get_post_by_id(post_id)
+    revpost = get_revpost_of_owner(post_id)
     # revpost may not exist yet so do not check it
     if post:
         return render(request,
@@ -415,8 +415,7 @@ def create_post(request):
                           'webhub/notice.html',
                           {'text': 'Post created successfully.',
                            'text1': 'Click here to view post.',
-                           'link': '/view_post/?key=' +
-                           str(post.id)})
+                           'post': post})
     return render(request,
                   'webhub/create_post.html',
                   {'form': form})
