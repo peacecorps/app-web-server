@@ -377,23 +377,24 @@ def malaria(request):
                   'webhub/malaria.html',
                   {'post_list': post_list})
 
-#called when a user wants to view a particular post. Also shows up the revision history
+
 def view_post(request):
+
     retval = check(request)
-    if retval <> None:
+    if retval is not None:
         return retval
 
     try:
-        pcuser=request.user.pcuser
-        key=request.REQUEST['key']
-        postobj=Post.objects.get(id=key)
-        
-        revpostobj = RevPost.objects.filter(owner_rev_post_id=key)
-        
-        return HttpResponse(jinja_environ.get_template('viewpost.html').render({"pcuser":request.user.pcuser, 'post':postobj, 'revpostobj':revpostobj}))
+        key = request.REQUEST['key']
+        post = Post.objects.get(id=key)
+        revpost = RevPost.objects.filter(owner_rev_post_id=key)
+        return render(request,
+                      'webhub/view_post.html',
+                      {'post': post,
+                       'revpost': revpost})
     except Exception as e:
         return HttpResponse(e)
-    
+
 
 def create_post(request):
 
