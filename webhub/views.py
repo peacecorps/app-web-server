@@ -6,8 +6,7 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.db import IntegrityError
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
@@ -29,6 +28,7 @@ from rest_framework.response import Response
 from paths import cpspath
 from webhub import xlrd
 from webhub.forms import PostForm
+from webhub.services import get_post_by_id, get_revpost_of_owner
 
 import smtplib
 
@@ -384,16 +384,17 @@ def view_post(request):
     if retval is not None:
         return retval
 
-    try:
-        key = request.REQUEST['key']
-        post = Post.objects.get(id=key)
-        revpost = RevPost.objects.filter(owner_rev_post_id=key)
+    key = request.REQUEST['key']
+    post = get_post_by_id(key)
+    revpost = get_revpost_of_owner(key)
+    # revpost may not exist yet so do not check it
+    if post:
         return render(request,
                       'webhub/view_post.html',
                       {'post': post,
                        'revpost': revpost})
-    except Exception as e:
-        return HttpResponse(e)
+    else:
+        raise Http404
 
 
 def create_post(request):
