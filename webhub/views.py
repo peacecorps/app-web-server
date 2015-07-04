@@ -395,7 +395,7 @@ def view_post(request):
         return HttpResponse(e)
     
 
-def post_new(request):
+def create_post(request):
 
     # check if the user is logged in
     retval = check(request)
@@ -416,7 +416,7 @@ def post_new(request):
                            'link': '/view_post/?key=' +
                            str(post.id)})
     return render(request,
-                  'webhub/new_post.html',
+                  'webhub/create_post.html',
                   {'form': form})
 
 #Calls the edit post page. Also, sends the autofill form data.    
