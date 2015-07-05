@@ -428,10 +428,67 @@ def edit_post_page(request, post_id):
 
     post = get_post_by_id(post_id)
     if post:
-        return render(request, 'webhub/edit_post.html', {'post': post})
+        if request.method == 'POST':
+            # need to get the original title_post and description_post
+            # before it is changed when calling instance on PostForm
+            orig_title = post.title_post
+            orig_desc = post.description_post
+            form = PostForm(request.POST, instance=post)
+
+            if form.is_valid():
+
+                owner = request.user.pcuser
+                edited_title = form.cleaned_data['title_post']
+                edited_desc = form.cleaned_data['description_post']
+                print orig_title
+                print edited_title
+                print orig_desc
+                print edited_desc
+
+                if (orig_title != edited_title) or \
+                   (orig_desc != edited_desc):
+
+                    post = form.save(commit=False)
+                    post.owner = owner
+                    post.save()
+
+                    revpost_title_change = False
+                    revpost_desc_change = False
+                    if(orig_title != edited_title):
+                        revpost_title_change = True
+                    if(orig_desc != edited_desc):
+                        revpost_desc_change = True
+
+                    revpost = RevPost(owner_rev=owner,
+                                      owner_rev_post=post,
+                                      title_post_rev=orig_title,
+                                      description_post_rev=orig_desc,
+                                      title_change=revpost_title_change,
+                                      description_change=revpost_desc_change)
+                    revpost.save()
+                    return render(request,
+                                  'webhub/notice.html',
+                                  {'text': 'Post edited successfully.',
+                                   'text1': 'Click here to view post.',
+                                   'post': post})
+                else:
+                    return render(request,
+                                  'webhub/notice.html',
+                                  {'text': 'No changes to Post made.',
+                                   'text1': 'Click here to view post.',
+                                   'post': post})
+            else:
+                # need to handle cases when form is invalid
+                pass
+        else:
+            form = PostForm(instance=post)
+            return render(request,
+                          'webhub/edit_post.html',
+                          {'form': form, 'post': post})
     else:
         raise Http404
-    
+
+
 #Called when a user edits his/her post and also saves the revision history
 @csrf_exempt
 def edit_post(request):
