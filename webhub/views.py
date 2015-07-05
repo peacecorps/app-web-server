@@ -384,7 +384,6 @@ def view_post(request, post_id):
     if retval is not None:
         return retval
 
-    #key = request.REQUEST['key']
     post = get_post_by_id(post_id)
     revpost = get_revpost_of_owner(post_id)
     # revpost may not exist yet so do not check it
@@ -420,17 +419,19 @@ def create_post(request):
                   'webhub/create_post.html',
                   {'form': form})
 
-#Calls the edit post page. Also, sends the autofill form data.    
+
 def edit_post_page(request):
+
     retval = check(request)
-    if retval <> None:
+    if retval is not None:
         return retval
 
     try:
         pcuser=request.user.pcuser
         key=request.REQUEST['key']
-        postobj=Post.objects.get(id=key)
-        return HttpResponse(jinja_environ.get_template('editpost.html').render({"pcuser":request.user.pcuser, 'post':postobj}))
+        post=Post.objects.get(id=key)
+        #return HttpResponse(jinja_environ.get_template('editpost.html').render({"pcuser":request.user.pcuser, 'post':postobj}))
+        return render(request, 'webhub/edit_post.html', {'post': post})
     except Exception as e:
         return HttpResponse(e)
     
