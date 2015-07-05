@@ -429,6 +429,7 @@ def edit_post_page(request, post_id):
     post = get_post_by_id(post_id)
     if post:
         if request.method == 'POST':
+
             # need to get the original title_post and description_post
             # before it is changed when calling instance on PostForm
             orig_title = post.title_post
@@ -440,10 +441,6 @@ def edit_post_page(request, post_id):
                 owner = request.user.pcuser
                 edited_title = form.cleaned_data['title_post']
                 edited_desc = form.cleaned_data['description_post']
-                print orig_title
-                print edited_title
-                print orig_desc
-                print edited_desc
 
                 if (orig_title != edited_title) or \
                    (orig_desc != edited_desc):
@@ -454,6 +451,7 @@ def edit_post_page(request, post_id):
 
                     revpost_title_change = False
                     revpost_desc_change = False
+
                     if(orig_title != edited_title):
                         revpost_title_change = True
                     if(orig_desc != edited_desc):
@@ -489,95 +487,6 @@ def edit_post_page(request, post_id):
         raise Http404
 
 
-#Called when a user edits his/her post and also saves the revision history
-@csrf_exempt
-def edit_post(request):
-    retval = check(request)
-    if retval <> None:
-        return retval
-    
-    owner = request.user.pcuser
-    postid = request.REQUEST['postid']
-    postobj = None
-    revpostobj = None
-    try:
-        postobj = Post.objects.get(pk=postid)
-    except Exception as e:
-        return HttpResponse(e)
-    
-    title_post = request.REQUEST['title']
-    description_post = request.REQUEST['description']
-    
-    
-    
-    
-    if postobj.title_post <> title_post:
-        if postobj.description_post <> description_post:
-            
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-        
-                    title_change=True,
-                    description_change=True,
-        
-                    )
-                entry.save()
-            
-        else:
-            
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-        
-                    title_change=True,
-                    description_change=False,
-        
-                    )
-                entry.save()
-                    
-    else:        
-        if postobj.description_post <> description_post:
-            
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-        
-                    title_change=False,
-                    description_change=True,
-        
-                    )
-                entry.save()
-                        
-        else:
-            
-                entry = RevPost(owner_rev=owner, 
-                    owner_rev_post=postobj, 
-                    title_post_rev=postobj.title_post,
-                    description_post_rev=postobj.description_post,
-        
-                    title_change=False,
-                    description_change=False,
-        
-                    )
-                entry.save()
-            
-    postobj.title_post = title_post
-    postobj.description_post = description_post
-    
-    
-    postobj.save()
-    
-    postobj.owner.save()
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                          "text":'Post edited successfully.',"text1":'Click here to view post.', "link": '/view_post/?key=' + str(postobj.id)}))
-
-
-
-#Called when a user cancels his post. 
 @csrf_exempt
 def delete_post(request):
     retval = check(request)
