@@ -56,7 +56,7 @@ urlpatterns = patterns(
     url(r'^edit_post/$',
         views.edit_post,
         name='edit_post'),
-    url(r'^edit_post_page/$',
+    url(r'^edit_post_page/(?P<post_id>\d+)$',
         views.edit_post_page,
         name='edit_post_page'),
     url(r'^view_post/(?P<post_id>\d+)$',

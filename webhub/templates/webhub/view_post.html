@@ -33,7 +33,7 @@
         </div><br>
         <br>    
         <center>
-            <button class="btn" type="button" onclick="window.location.href='/edit_post_page/?key={{post.id}}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn" type="button" onclick="window.location.href='{% url 'webhub:edit_post_page' post.id %}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button>
         </center>    
         <br>

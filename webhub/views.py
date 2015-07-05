@@ -420,20 +420,17 @@ def create_post(request):
                   {'form': form})
 
 
-def edit_post_page(request):
+def edit_post_page(request, post_id):
 
     retval = check(request)
     if retval is not None:
         return retval
 
-    try:
-        pcuser=request.user.pcuser
-        key=request.REQUEST['key']
-        post=Post.objects.get(id=key)
-        #return HttpResponse(jinja_environ.get_template('editpost.html').render({"pcuser":request.user.pcuser, 'post':postobj}))
+    post = get_post_by_id(post_id)
+    if post:
         return render(request, 'webhub/edit_post.html', {'post': post})
-    except Exception as e:
-        return HttpResponse(e)
+    else:
+        raise Http404
     
 #Called when a user edits his/her post and also saves the revision history
 @csrf_exempt
