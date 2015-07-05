@@ -420,7 +420,7 @@ def create_post(request):
                   {'form': form})
 
 
-def edit_post_page(request, post_id):
+def edit_post(request, post_id):
 
     retval = check(request)
     if retval is not None:
