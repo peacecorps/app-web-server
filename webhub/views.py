@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 import jinja2
 import uuid
 from jinja2.ext import loopcontrols
@@ -477,7 +478,7 @@ def edit_post(request, post_id):
                                    'text1': 'Click here to view post.',
                                    'post': post})
             else:
-                # need to handle cases when form is invalid
+                # to do: need to handle cases when form is invalid
                 pass
         else:
             form = PostForm(instance=post)
@@ -488,7 +489,7 @@ def edit_post(request, post_id):
         raise Http404
 
 
-@csrf_exempt
+# to do: delete should not be done from a link (HTTP GET)
 def delete_post(request, post_id):
 
     retval = check(request)
@@ -496,17 +497,10 @@ def delete_post(request, post_id):
         return retval
 
     if delete_post_by_id(post_id):
-        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser, "text":'Post Deleted successfully.', "text1":'Click here to go to home page.',"link":'/'}))
+        return HttpResponseRedirect(reverse('webhub:malaria'))
     else:
         raise Http404
-        
-    #postobj = None
-    #try:
-    #    postobj = Post.objects.get(pk=postid)
-    #except Exception as e:
-    #    return HttpResponse(e)
-    
-    #postobj.delete()
+
 
 #Call to open user's profile page.Sends data to be displayed.        
 def profile(request):
