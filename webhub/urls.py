@@ -59,7 +59,7 @@ urlpatterns = patterns(
     url(r'^view_post/(?P<post_id>\d+)$',
         views.view_post,
         name='view_post'),
-    url(r'^delete_post/$',
+    url(r'^delete_post/(?P<post_id>\d+)$',
         views.delete_post,
         name='delete_post'),
     url(r'^profile/$',

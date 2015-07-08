@@ -23,7 +23,7 @@
                     <tr>
                     <td><a href="{% url 'webhub:view_post' post.id %}"><font color="white">{{ post.title_post }}</font></a></td>
                     <td><button class="btn" type="button" onclick="window.location.href='{% url 'webhub:edit_post' post.id %}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="btn" type="button" onclick="window.location.href='/delete_post/?postid={{post.id}}'">Delete</button></td></tr>
+                    <button class="btn" type="button" onclick="window.location.href='{% url 'webhub:delete_post' post.id %}'">Delete</button></td></tr>
                 {% endfor %}
             </tbody>
             </table>

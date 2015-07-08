@@ -28,7 +28,7 @@ from rest_framework.response import Response
 from paths import cpspath
 from webhub import xlrd
 from webhub.forms import PostForm
-from webhub.services import get_post_by_id, get_revpost_of_owner
+from webhub.services import delete_post_by_id, get_post_by_id, get_revpost_of_owner
 
 import smtplib
 
@@ -464,6 +464,7 @@ def edit_post(request, post_id):
                                       title_change=revpost_title_change,
                                       description_change=revpost_desc_change)
                     revpost.save()
+
                     return render(request,
                                   'webhub/notice.html',
                                   {'text': 'Post edited successfully.',
@@ -488,24 +489,24 @@ def edit_post(request, post_id):
 
 
 @csrf_exempt
-def delete_post(request):
+def delete_post(request, post_id):
+
     retval = check(request)
-    if retval <> None:
+    if retval is not None:
         return retval
-    user = request.user
 
-    postid = request.REQUEST['postid']
+    if delete_post_by_id(post_id):
+        return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser, "text":'Post Deleted successfully.', "text1":'Click here to go to home page.',"link":'/'}))
+    else:
+        raise Http404
         
-    postobj = None
-    try:
-        postobj = Post.objects.get(pk=postid)
-    except Exception as e:
-        return HttpResponse(e)
+    #postobj = None
+    #try:
+    #    postobj = Post.objects.get(pk=postid)
+    #except Exception as e:
+    #    return HttpResponse(e)
     
-    postobj.delete()
-
-    return HttpResponse(jinja_environ.get_template('notice.html').render({"pcuser":request.user.pcuser,
-                                                                          "text":'Post Deleted successfully.', "text1":'Click here to go to home page.',"link":'/'}))
+    #postobj.delete()
 
 #Call to open user's profile page.Sends data to be displayed.        
 def profile(request):
