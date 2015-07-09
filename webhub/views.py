@@ -489,20 +489,23 @@ def edit_post(request, post_id):
         raise Http404
 
 
-# to do: delete should not be done from a link (HTTP GET)
 def delete_post(request, post_id):
 
     retval = check(request)
     if retval is not None:
         return retval
 
-    if delete_post_by_id(post_id):
-        return HttpResponseRedirect(reverse('webhub:malaria'))
+    if request.method == 'POST':
+        if delete_post_by_id(post_id):
+            return HttpResponseRedirect(reverse('webhub:malaria'))
+        else:
+            raise Http404
     else:
-        raise Http404
+        return render(request,
+                      'webhub/delete_post.html',
+                      {'post_id': post_id})
 
 
-#Call to open user's profile page.Sends data to be displayed.        
 def profile(request):
     
     try:

@@ -11,7 +11,7 @@
     <br>
     <center><b><h3><font color="white">New Post</font></h3></b></center>
     <br>
-    <form action="/create_post/" method="post" enctype="multipart/form-data">
+    <form action="{% url 'webhub:create_post' %}" method="post">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-1">
