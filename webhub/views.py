@@ -478,8 +478,9 @@ def edit_post(request, post_id):
                                    'text1': 'Click here to view post.',
                                    'post': post})
             else:
-                # to do: need to handle cases when form is invalid
-                pass
+                return render(request,
+                              'webhub/edit_post.html',
+                              {'form': form, 'post': post})
         else:
             form = PostForm(instance=post)
             return render(request,
