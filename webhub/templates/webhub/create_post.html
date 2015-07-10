@@ -20,7 +20,7 @@
                 <p><font color="white"><h4>Title</h4></font></p>
             </div>
             <div class="col-md-6">
-                <input type="text" name="title_post">
+                <input type="text" name="title_post" value="{% if form.title_post.value %}{{ form.title_post.value }}{% endif %}">
                 {% if form.title_post.errors %}
                     <p>
                         <strong>
@@ -39,7 +39,7 @@
                 <p><font color="white"><h4>Description</h4></font></p>
             </div>
             <div class="col-md-6">
-                <textarea name="description_post" rows="5"></textarea>
+                <textarea name="description_post" rows="5">{% if form.description_post.value %}{{ form.description_post.value }}{% endif %}</textarea>
                 {% if form.description_post.errors %}
                     <p>
                         <strong>
