@@ -6,7 +6,7 @@
 </head>
 <body>
     <br><br><br><br><br><br>
-    <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
+    <center><h2><font color="#2c0f00"> Malaria : infoHub</font></h2></center>
     <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97;">
         <br>
         <center><b><h3><font color="white">View Post</font></h3></b></center>
@@ -33,9 +33,9 @@
         </div><br>
         <br>    
         <center>
-            <button class="btn" type="button" onclick="window.location.href='{% url 'webhub:edit_post' post.id %}'">Edit</button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn" type="button" onclick="window.location.href='{% url 'webhub:delete_post' post.id %}'">Delete</button>
-        </center>    
+            <a href="{% url 'webhub:edit_post' post.id %}" class="btn btn-default">Edit</a>
+            <a href="{% url 'webhub:delete_post' post.id %}" class="btn btn-default">Delete</a>
+        </center>
         <br>
     </div>
     <br>
