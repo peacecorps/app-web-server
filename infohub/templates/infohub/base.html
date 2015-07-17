@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+        <link href="{% static "infohub/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+        <link href="{% static "infohub/css/footer.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="navbar navbar-fixed-top" role="navigation" style="background-color:#e2d7bb; height:100px;">
+            <div class="container">
+                <div class="navbar-header">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <a href="/"><img src="http://i.imgur.com/2wwH5x2.gif" class="img-responsive" style="width:180px; height:90px; padding-bottom:5px; padding-top:10px;"></a>
+                        </div>
+                        <div class="col-md-10">
+                            <a class="navbar-brand" href="/" style="color:#2c0f00;"><h1>Mobile App Control Center</h1></a>
+                            {% if pcuser %}
+                                <div class="navbar-right" style="float:right; padding-top:10px; margin-right:-500px;">
+                                    <a href="/profile/?id={{pcuser.user.id}}"><h4><font color="#2c0f00" style="border:2px solid; padding:5px;">Welcome, <b>{{pcuser.user.first_name}}</b> !</font></a>
+                                    <a href="/logout_do/"><font color="#2c0f00" style="border:2px solid; padding:5px;">LogOut</font></a></h4>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="footerBkg">
+            <div class="footerBtns">
+                <font size="4" color="#2c0f00">
+                    <a href="/aboutPC" title="Home" style="color:2c0f00;">About Peace Corps</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="/policies/" title="Know about our team" style="color:2c0f00;">Policies</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="/details/" title="FAQs" style="color:2c0f00;">Important Details</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <a href="/helpPC/" title="Contact Us" style="color:2c0f00;">Help</a>&nbsp;&nbsp;
+                    <br><br>
+                </font>
+            </div>
+            <p style="color:2c0f00;">&copy;2014 PeaceCrops</p>
+            <a href="#top" style="color:2c0f00;"><font size="2">Return to Top</font></a>
+        </div>
+    </body>
+</html>
