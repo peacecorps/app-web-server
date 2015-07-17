@@ -1,0 +1,73 @@
+{% extends "infohub/base.html" %}
+
+{% block content %}
+<head>
+    <title>Add New Post</title>
+</head>
+<body>
+    <br><br><br><br><br><br>
+    <center><h2><font color="#2c0f00"> Malaria : infoHub</font> </h2></center>
+    <div style="width:600px; height:400px; margin:0 auto; background-color:#0d8b97;">
+    <br>
+    <center><b><h3><font color="white">New Post</font></h3></b></center>
+    <br>
+    <form action="{% url 'malaria:create_post' %}" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                <p><font color="white"><h4>Title</h4></font></p>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="title_post" value="{% if form.title_post.value %}{{ form.title_post.value }}{% endif %}">
+                {% if form.title_post.errors %}
+                    <p>
+                        <strong>
+                            {% for error in form.title_post.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </strong>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-5">
+                <p><font color="white"><h4>Description</h4></font></p>
+            </div>
+            <div class="col-md-6">
+                <textarea rows="5" name="description_post">{% if form.description_post.value %}{{ form.description_post.value }}{% endif %}</textarea>
+                {% if form.description_post.errors %}
+                    <p>
+                        <strong>
+                            {% for error in form.description_post.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </strong>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        <br><center>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+            <div class="col-md-3">
+                <a href="{% url 'malaria:list_posts' %}" class="btn btn-default">Cancel</a>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </form>
+    <br>    
+    </div>
+    <br><br><br>
+</body>
+{% endblock %}

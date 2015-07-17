@@ -1,12 +1,7 @@
-#Version : Phython/Django 2.7.6, PostgreSQL 9.3.4
-#Author : Vaibhavi Desai
-#Github username : desaivaibhavi
-#email : ranihaileydesai@gmail.com
-
-
 from django.contrib import admin
+from malaria.models import Post, RevPost
+from peacetrack.models import *
 from webhub.models import *
-
 
 admin.site.register(Pcuser)
 admin.site.register(Post)
@@ -24,7 +19,3 @@ admin.site.register(Activity)
 admin.site.register(Measurement)
 admin.site.register(Cohort)
 admin.site.register(Volunteer)
-
-
-
-# Register your models here.
