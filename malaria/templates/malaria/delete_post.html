@@ -21,7 +21,7 @@
                 </b>
             </center>
             <br>
-            <form action="{% url 'webhub:delete_post' post_id %}" method="post">
+            <form action="{% url 'malaria:delete_post' post_id %}" method="post">
                 {% csrf_token %}
                 <div class="form-group">
                     <label class="col-sm-offset-2">Are you sure you want to delete this Post?</label>
@@ -29,7 +29,7 @@
                 <div class="form-group">
                     <div class="col-sm-offset-2">
                         <button type="submit" class="btn btn-default">Yes, delete this Post</button>
-                        <a href="{% url 'webhub:malaria' %}" class="btn btn-default">Cancel</a>
+                        <a href="{% url 'malaria:list_posts' %}" class="btn btn-default">Cancel</a>
                     </div>
                 </div>
             </form>

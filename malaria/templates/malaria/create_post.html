@@ -11,7 +11,7 @@
     <br>
     <center><b><h3><font color="white">New Post</font></h3></b></center>
     <br>
-    <form action="{% url 'webhub:create_post' %}" method="post">
+    <form action="{% url 'malaria:create_post' %}" method="post">
         {% csrf_token %}
         <div class="row">
             <div class="col-md-1">
@@ -60,7 +60,7 @@
                 <button type="submit" class="btn btn-default">Submit</button>
             </div>
             <div class="col-md-3">
-                <a href="{% url 'webhub:malaria' %}" class="btn btn-default">Cancel</a>
+                <a href="{% url 'malaria:list_posts' %}" class="btn btn-default">Cancel</a>
             </div>
             <div class="col-md-3">
             </div>

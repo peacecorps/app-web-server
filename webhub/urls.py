@@ -1,12 +1,13 @@
 from django.conf.urls import patterns, url, include
 from rest_framework import routers
-from webhub import views
+from malaria import views as malaria_views
 from peacetrack import views as peacetrack_views
+from webhub import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
-router.register(r'posts', views.PostViewSet)
-router.register(r'revposts', views.RevPostViewSet)
+router.register(r'posts', malaria_views.PostViewSet)
+router.register(r'revposts', malaria_views.RevPostViewSet)
 router.register(r'regions', peacetrack_views.RegionViewSet)
 router.register(r'sectors', peacetrack_views.SectorViewSet)
 router.register(r'ptposts', peacetrack_views.PTPostViewSet)
@@ -47,21 +48,6 @@ urlpatterns = patterns(
     url(r'^logout_do/$',
         views.logout_do,
         name='logout_do'),
-    url(r'^malaria/$',
-        views.malaria,
-        name='malaria'),
-    url(r'^create_post/$',
-        views.create_post,
-        name='create_post'),
-    url(r'^edit_post/(?P<post_id>\d+)$',
-        views.edit_post,
-        name='edit_post'),
-    url(r'^view_post/(?P<post_id>\d+)$',
-        views.view_post,
-        name='view_post'),
-    url(r'^delete_post/(?P<post_id>\d+)$',
-        views.delete_post,
-        name='delete_post'),
     url(r'^profile/$',
         views.profile,
         name='profile'),
@@ -92,15 +78,9 @@ urlpatterns = patterns(
     url(r'^pcuser/$',
         views.pcuser_list,
         name='pcuser_list'),
-    url(r'^revpost/$',
-        views.revpost_list,
-        name='revpost_list'),
     url(r'^pcuser/(?P<pk>[0-9]+)/$',
         views.pcuser_detail,
         name='pcuser_detail'),
-    url(r'^revpost/(?P<pk>[0-9]+)/$',
-        views.revpost_detail,
-        name='revpost_detail'),
     url(r'^api-auth/',
         include('rest_framework.urls',
                 namespace='rest_framework')),

@@ -19,7 +19,7 @@
     <div style="width:600px; height:auto; margin:0 auto; background-color:#0d8b97; padding-right:15px; padding-left:15px;">
         <br>
         <br>
-        <a href="{% url 'webhub:create_post' %}" class="btn btn-default" style="float:right;">New Post</a>
+        <a href="{% url 'malaria:create_post' %}" class="btn btn-default" style="float:right;">New Post</a>
         {% if post_list %}
             <table class="table">
             <thead>
@@ -40,11 +40,11 @@
                 {% for post in post_list %}
                     <tr>
                         <td>
-                            <a href="{% url 'webhub:view_post' post.id %}"><font color="white">{{ post.title_post }}</font></a>
+                            <a href="{% url 'malaria:view_post' post.id %}"><font color="white">{{ post.title_post }}</font></a>
                         </td>
                         <td>
-                            <a href="{% url 'webhub:edit_post' post.id %}" class="btn btn-default">Edit</a>
-                            <a href="{% url 'webhub:delete_post' post.id %}" class="btn btn-default">Delete</a>
+                            <a href="{% url 'malaria:edit_post' post.id %}" class="btn btn-default">Edit</a>
+                            <a href="{% url 'malaria:delete_post' post.id %}" class="btn btn-default">Delete</a>
                         </td>
                     </tr>
                 {% endfor %}

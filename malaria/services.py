@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from webhub.models import Post, RevPost
+from malaria.models import Post, RevPost
 
 
 def delete_post_by_id(post_id):

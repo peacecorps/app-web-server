@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from webhub.models import Post
+from malaria.models import Post
 
 
 class PostForm(ModelForm):
